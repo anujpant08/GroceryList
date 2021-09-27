@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/custom_quantity_background.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/drawable/grocery_item_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/search_box_drawable.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21422101449275363" />
+        <entry key="app/src/main/res/layout/grocery_item_custom_view.xml" value="0.21422101449275363" />
       </map>
     </option>
   </component>
