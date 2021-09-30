@@ -64,12 +64,12 @@ public class GroceryItem {
     @Override
     public String toString() {
         return "GroceryItem{" +
-                "title='" + title +
                 "fruitList=" + fruitList +
                 ", vegetableList=" + vegetableList +
                 ", spiceList=" + spiceList +
                 ", breadList=" + breadList +
-                ", dairyList=" + dairyList + '\'' +
+                ", dairyList=" + dairyList +
+                ", title='" + title + '\'' +
                 '}';
     }
 }

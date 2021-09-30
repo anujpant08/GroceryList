@@ -14,8 +14,7 @@
         android:fontFamily="@font/open_sans"
         android:text="Sunday Grocery"
         android:textColor="@color/primary"
-        android:textSize="20sp">
-    </TextView>
+        android:textSize="18sp" />
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"

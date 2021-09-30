@@ -1,6 +1,7 @@
 package com.example.grocerylist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.List;
 
 public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.GroceryItemViewHolder> {
     private final List<GroceryItem> groceryItemList;
+    public ItemClickListener itemClickListener;
     public GroceryItemAdapter(List<GroceryItem> groceryItemList) {
         this.groceryItemList = groceryItemList;
     }
@@ -58,7 +60,12 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
         return this.groceryItemList.size();
     }
 
-    public static class GroceryItemViewHolder extends RecyclerView.ViewHolder {
+    public void setItemClickListener(ItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public class GroceryItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener, View.OnClickListener {
+        private static final String TAG = "GroceryItemViewHolder";
         TextView titleTextView;
         ImageView fruitImageView;
         TextView fruitQuantityTextView;
@@ -84,6 +91,22 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
             breadQuantityTextView = (TextView) itemView.findViewById(R.id.bread_quantity);
             dairyImageView = (ImageView) itemView.findViewById(R.id.dairy_item);
             dairyQuantityTextView = (TextView) itemView.findViewById(R.id.dairy_quantity);
+            itemView.setOnLongClickListener(this);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            if (itemClickListener != null) {
+                Log.e(TAG, "long clicked.");
+                itemClickListener.onLongClick(view, getAdapterPosition());
+            }
+            return true;
+        }
+
+        @Override
+        public void onClick(View view) {
+
         }
     }
 }

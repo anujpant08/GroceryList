@@ -4,23 +4,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "MainActivity";
     List<GroceryItem> groceryItemList = new ArrayList<>();
-    private GroceryItemAdapter groceryItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         RecyclerView recyclerView = findViewById(R.id.recycler_view_grocery_item);
-        groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
+        GroceryItemAdapter groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
+        groceryItemAdapter.setItemClickListener(this);
         recyclerView.setAdapter(groceryItemAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -61,6 +65,19 @@ public class MainActivity extends AppCompatActivity {
         breads.add(new Bread("Flour"));
         groceryItem2.setBreadList(breads);
         groceryItemList.add(groceryItem2);
-        groceryItemAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+
+    }
+
+    @Override
+    public void onLongClick(View view, int position) {
+        Intent intent = new Intent(this, GroceryItemPopupActivity.class);
+        Gson gson = new Gson();
+        String jsonGroceryListObject = gson.toJson(groceryItemList.get(position));
+        intent.putExtra("Popup", jsonGroceryListObject);
+        this.startActivity(intent);
     }
 }

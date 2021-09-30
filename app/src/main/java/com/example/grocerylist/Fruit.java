@@ -41,6 +41,11 @@ public class Fruit implements  ItemCategoryInterface{
         return this.quantity;
     }
 
+    @Override
+    public String getFamily() {
+        return "Fruits";
+    }
+
     @NonNull
     @Override
     public String toString() {
