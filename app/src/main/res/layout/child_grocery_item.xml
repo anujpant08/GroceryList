@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/popup_check_box"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:button="@drawable/custom_check_box">
+
+    </com.google.android.material.checkbox.MaterialCheckBox>
+
+    <TextView
+        android:id="@+id/child_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/popup_check_box"
+        android:fontFamily="@font/open_sans_bold"
+        android:gravity="center_vertical"
+        android:text="Sample"
+        android:textColor="@color/secondary"
+        android:textSize="16sp">
+
+    </TextView>
+
+</RelativeLayout>

@@ -41,6 +41,11 @@ public class Dairy implements  ItemCategoryInterface{
         return this.quantity;
     }
 
+    @Override
+    public String getFamily() {
+        return "Dairy";
+    }
+
     @NonNull
     @Override
     public String toString() {

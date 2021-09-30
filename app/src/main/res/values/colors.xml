@@ -8,4 +8,6 @@
     <color name="dark_green">#18863c</color>
     <color name="dark_green_alpha">#A618863C</color>
     <color name="fruit_yellow">#f8d23a</color>
+    <color name="dark_red">#a80e2a</color>
+    <color name="bread_yellow">#fcc969</color>
 </resources>

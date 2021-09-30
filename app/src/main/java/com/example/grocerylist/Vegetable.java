@@ -41,6 +41,11 @@ public class Vegetable implements  ItemCategoryInterface{
         return this.quantity;
     }
 
+    @Override
+    public String getFamily() {
+        return "Vegetables";
+    }
+
     @NonNull
     @Override
     public String toString() {

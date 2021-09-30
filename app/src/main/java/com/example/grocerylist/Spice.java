@@ -41,6 +41,11 @@ public class Spice implements  ItemCategoryInterface{
         return this.quantity;
     }
 
+    @Override
+    public String getFamily() {
+        return "Spices";
+    }
+
     @NonNull
     @Override
     public String toString() {
