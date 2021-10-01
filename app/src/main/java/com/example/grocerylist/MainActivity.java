@@ -1,13 +1,19 @@
 package com.example.grocerylist;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 
 import com.google.gson.Gson;
 
@@ -17,19 +23,77 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "MainActivity";
     List<GroceryItem> groceryItemList = new ArrayList<>();
+    private GroceryItemAdapter groceryItemAdapter;
+    private AutoCompleteTextView searchBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        searchBox = findViewById(R.id.search_box);
         RecyclerView recyclerView = findViewById(R.id.recycler_view_grocery_item);
-        GroceryItemAdapter groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
+        groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
         groceryItemAdapter.setItemClickListener(this);
         recyclerView.setAdapter(groceryItemAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         createDummyList(groceryItemList);
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(!searchBox.isCursorVisible() && charSequence.toString().length() > 0){
+                    searchBox.setCursorVisible(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(editable.toString().length() == 0){
+                    if(searchBox.isCursorVisible()){
+                        searchBox.setCursorVisible(false);
+                    }
+                    searchBox.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(MainActivity.this, R.drawable.search_white_24dp), null, null, null);
+                }else{
+                    searchBox.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
+                }
+                filterList(editable.toString());
+                //searchBox.setFocusableInTouchMode(true);
+            }
+        });
+        searchBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!searchBox.isCursorVisible()){
+                    searchBox.setCursorVisible(true);
+                }
+            }
+        });
         Log.e(TAG, "Final list: " + groceryItemList);
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+    }
+
+    private void filterList(String searchString) {
+        if(!groceryItemList.isEmpty()){
+            List<GroceryItem> searchResults = new ArrayList<>();
+            for(GroceryItem groceryItem : groceryItemList){
+                if(groceryItem.getTitle().toLowerCase().startsWith(searchString.toLowerCase())){
+                    searchResults.add(groceryItem);
+                }
+            }
+            groceryItemAdapter.updateList(searchResults);
+        }
     }
 
     private void createDummyList(List<GroceryItem> groceryItemList) {
@@ -79,5 +143,13 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         String jsonGroceryListObject = gson.toJson(groceryItemList.get(position));
         intent.putExtra("Popup", jsonGroceryListObject);
         this.startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        searchBox.setFocusable(false);
+        closeKeyboard();
+        searchBox.setFocusableInTouchMode(true);
     }
 }
