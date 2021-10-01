@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateNewListActivity"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/create_list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:text="Create New List"
+        android:fontFamily="@font/open_sans_bold"
+        android:textSize="20sp"
+        android:textColor="@color/secondary">
+    </TextView>
+    <TextView
+        android:id="@+id/create_list_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Select items from various categories"
+        android:layout_below="@id/create_list_title"
+        android:fontFamily="@font/open_sans"
+        android:textSize="14sp"
+        android:textColor="@color/secondary">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/apple_layout"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/create_list_description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="Apple"
+        android:src="@drawable/apple">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/search_fruit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search Fruits"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/apple_layout"
+        android:fontFamily="@font/open_sans"
+        android:textSize="14sp"
+        android:textColor="@color/fruit_red">
+    </TextView>
+
+    <AutoCompleteTextView
+        android:id="@+id/search_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_fruit"
+        android:layout_margin="8dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/open_sans"
+        android:hint="Fruit Name"
+        android:backgroundTint="@color/secondary"
+        android:textColorHint="#806353DB">
+
+    </AutoCompleteTextView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Get veggies"
+        app:icon="@drawable/ic_round_navigate_next_24"
+        app:iconGravity="end"
+        app:iconPadding="0dp">
+
+    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+</RelativeLayout>
