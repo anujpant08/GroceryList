@@ -20,19 +20,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/search_box"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:autofillHints="name"
         android:background="@drawable/search_box_drawable"
-        android:hint="Search List"
-        android:drawableEnd="@drawable/search_white_24dp"
+        android:hint="Search Grocery List"
+        android:drawableStart="@drawable/search_white_24dp"
         android:inputType="text"
+        android:imeOptions="actionSearch"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="#90FFFFFF"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/title"/>
     <androidx.recyclerview.widget.RecyclerView

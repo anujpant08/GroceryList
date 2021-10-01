@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.GroceryItemViewHolder> {
-    private final List<GroceryItem> groceryItemList;
+    private List<GroceryItem> groceryItemList;
     public ItemClickListener itemClickListener;
     public GroceryItemAdapter(List<GroceryItem> groceryItemList) {
         this.groceryItemList = groceryItemList;
@@ -58,6 +58,11 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
     @Override
     public int getItemCount() {
         return this.groceryItemList.size();
+    }
+
+    public void updateList(List<GroceryItem> updatedList){
+        this.groceryItemList = updatedList;
+        notifyDataSetChanged();
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
