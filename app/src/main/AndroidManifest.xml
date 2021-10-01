@@ -10,9 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GroceryList">
         <activity
+            android:name=".CreateNewListActivity"
+            android:exported="true" />
+        <activity
             android:name=".GroceryItemPopupActivity"
             android:exported="true"
-            android:theme="@style/ThemeDialogCustom"/>
+            android:theme="@style/ThemeDialogCustom" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

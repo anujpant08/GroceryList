@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -71,6 +72,14 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 if(!searchBox.isCursorVisible()){
                     searchBox.setCursorVisible(true);
                 }
+            }
+        });
+        ExtendedFloatingActionButton newList = findViewById(R.id.new_list_fab);
+        newList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CreateNewListActivity.class);
+                startActivity(intent);
             }
         });
         Log.e(TAG, "Final list: " + groceryItemList);
