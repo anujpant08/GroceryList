@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         newList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreateNewListActivity.class);
+                Intent intent = new Intent(MainActivity.this, CreateFruitListActivity.class);
                 startActivity(intent);
             }
         });

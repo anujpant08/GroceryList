@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:behavior_hideable="true"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:fontFamily="@font/open_sans"
+        android:text="Hello World"
+        android:textColor="@color/secondary"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/item_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="Item" />
+    <TextView
+        android:id="@+id/item_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quantity"
+        android:layout_margin="8dp"
+        android:fontFamily="@font/open_sans"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_below="@id/item_image"
+        android:textColor="@color/secondary">
+    </TextView>
+    <TextView
+        android:id="@+id/item_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Weight"
+        android:fontFamily="@font/open_sans"
+        android:layout_margin="8dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_below="@id/item_quantity"
+        android:textColor="@color/secondary">
+    </TextView>
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/add_to_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        android:fontFamily="@font/open_sans_bold"
+        android:text="Add to list"
+        android:layout_below="@id/item_weight">
+
+    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+</RelativeLayout>
