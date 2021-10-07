@@ -26,15 +26,16 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
     List<GroceryItem> groceryItemList = new ArrayList<>();
     private GroceryItemAdapter groceryItemAdapter;
     private AutoCompleteTextView searchBox;
+    private RecyclerView recyclerView = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         searchBox = findViewById(R.id.search_box);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view_grocery_item);
         groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
         groceryItemAdapter.setItemClickListener(this);
+        recyclerView = findViewById(R.id.recycler_view_grocery_item);
         recyclerView.setAdapter(groceryItemAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 }
             }
             groceryItemAdapter.updateList(searchResults);
+            recyclerView.setAdapter(groceryItemAdapter);// To reflect display items after filtering.
         }
     }
 

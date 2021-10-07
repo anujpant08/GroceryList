@@ -3,6 +3,7 @@ package com.example.grocerylist;
 import androidx.annotation.NonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GroceryItem {
     private List<Fruit> fruitList;
@@ -58,6 +59,19 @@ public class GroceryItem {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public boolean equals(Object groceryItemObject) {
+        if (this == groceryItemObject) return true;
+        if (groceryItemObject == null || getClass() != groceryItemObject.getClass()) return false;
+        GroceryItem groceryItem = (GroceryItem) groceryItemObject;
+        return this.title.equals(groceryItem.title);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.title);
     }
 
     @NonNull
