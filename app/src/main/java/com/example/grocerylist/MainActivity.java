@@ -161,4 +161,10 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         closeKeyboard();
         searchBox.setFocusableInTouchMode(true);
     }
+
+    @Override
+    protected void onStop() {
+        //clear shared preferences
+        super.onStop();
+    }
 }
