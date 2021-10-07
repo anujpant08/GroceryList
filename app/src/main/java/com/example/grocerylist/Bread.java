@@ -2,11 +2,10 @@ package com.example.grocerylist;
 
 import androidx.annotation.NonNull;
 
-public class
-Bread implements  ItemCategoryInterface{
+public class Bread implements  ItemCategoryInterface{
     private String name = "";
-    private Double weight = 0.0;
-    private Double quantity = 0.0;
+    private String weight = "";
+    private String quantity = "";
 
     public Bread(String name) {
         this.name = name;
@@ -23,24 +22,25 @@ Bread implements  ItemCategoryInterface{
     }
 
     @Override
-    public void setWeight(Double weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
     @Override
-    public Double getWeight() {
-        return this.weight;
+    public String getWeight() {
+        return null;
     }
 
     @Override
-    public void setQuantity(Double quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
     @Override
-    public Double getQuantity() {
-        return this.quantity;
+    public String getQuantity() {
+        return null;
     }
+
 
     @Override
     public String getFamily() {
