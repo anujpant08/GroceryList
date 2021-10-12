@@ -48,17 +48,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
             setContentView(R.layout.create_vegetables_list);
             Intent intent = getIntent();
             intentValue = intent.getStringExtra("ClearData");
-            SharedPreferences sharedPreferences = null;
-            if(intentValue != null && intentValue.equals("true")){
-                sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-                if(editor == null){
-                    editor = sharedPreferences.edit();
-                }
-                editor.clear();
-                editor.apply();
-                Log.e(TAG, "clearData in vegetable list activity");
-            }
-            sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+            SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
             if(editor == null){
                 editor = sharedPreferences.edit();
             }
@@ -111,6 +101,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
                             }
                         });
                     }
+                    newGroceryItem = BottomSheetFragment.getGroceryItem();
                 }
             });
             ExtendedFloatingActionButton extendedFloatingActionButton = findViewById(R.id.get_spices);
