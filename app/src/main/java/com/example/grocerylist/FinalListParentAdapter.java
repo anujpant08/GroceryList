@@ -3,6 +3,7 @@ package com.example.grocerylist;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -50,6 +51,27 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
         Log.e(TAG, "items: " + subItemsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context);
         FinalChildGroceryItemsAdapter finalChildGroceryItemsAdapter = new FinalChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position));
+        RecyclerView.OnItemTouchListener scrollTouchListener = new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, MotionEvent e) {
+                int action = e.getAction();
+                if (action == MotionEvent.ACTION_MOVE) {
+                    rv.getParent().requestDisallowInterceptTouchEvent(true);
+                }
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        };
+        holder.recyclerViewChildItems.addOnItemTouchListener(scrollTouchListener);
         holder.recyclerViewChildItems.setAdapter(finalChildGroceryItemsAdapter);
         holder.recyclerViewChildItems.setLayoutManager(layoutManager);
         finalChildGroceryItemsAdapter.notifyDataSetChanged();

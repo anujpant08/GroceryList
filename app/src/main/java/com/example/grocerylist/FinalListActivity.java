@@ -57,6 +57,7 @@ public class FinalListActivity extends CreateFruitListActivity {
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             recyclerView.setAdapter(finalListParentAdapter);
+            recyclerView.setNestedScrollingEnabled(false);
             finalListParentAdapter.notifyDataSetChanged();
         }
     }

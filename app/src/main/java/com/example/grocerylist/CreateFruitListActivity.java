@@ -52,16 +52,18 @@ public class CreateFruitListActivity extends AppCompatActivity {
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.create_fruits_list);
-            Intent intent = getIntent();
-            intentValue = intent.getStringExtra("ClearData");
-            if(intentValue != null && intentValue.equals("true")){
-                Log.e(TAG, "claerdata oncreate furit list activity");
-                SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-                editor = sharedPreferences.edit();
-                editor.clear();
-                editor.apply();
-                newGroceryItem = new GroceryItem();
-                BottomSheetFragment.groceryItem = null;
+            if(savedInstanceState == null){
+                Intent intent = getIntent();
+                intentValue = intent.getStringExtra("ClearData");
+                if(intentValue != null && intentValue.equals("true")){
+                    Log.e(TAG, "claerdata oncreate furit list activity");
+                    SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+                    editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    newGroceryItem = new GroceryItem();
+                    BottomSheetFragment.groceryItem = null;
+                }
             }
             ImageView imageView = (ImageView)findViewById(R.id.feature_fruit);
             Glide.with(this).load(R.drawable.fruit).into(imageView);
@@ -110,6 +112,7 @@ public class CreateFruitListActivity extends AppCompatActivity {
                             }
                         });
                     }
+                    newGroceryItem = BottomSheetFragment.getGroceryItem();
                 }
             });
             ExtendedFloatingActionButton addVeggies = (ExtendedFloatingActionButton) findViewById(R.id.get_veggies);
@@ -117,9 +120,6 @@ public class CreateFruitListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(CreateFruitListActivity.this, CreateVegetablesListActivity.class);
-                    if(intentValue != null && intentValue.equals("true")){
-                        intent.putExtra("ClearData", "true");
-                    }
                     intentValue = "";
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
@@ -156,16 +156,7 @@ public class CreateFruitListActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-        String jsonData = sharedPreferences.getString(NEW_LIST, "");
-        Type type = new TypeToken<GroceryItem>() {
-        }.getType();
-        if (jsonData != null && !jsonData.equals("")) {
-            Gson gson = new Gson();
-            newGroceryItem = gson.fromJson(jsonData, type);
-        }else{
-            newGroceryItem = new GroceryItem();
-        }
+        newGroceryItem = BottomSheetFragment.getGroceryItem();
         Log.e(TAG, "resume of fruit list activity: " + newGroceryItem);
         super.onResume();
     }
