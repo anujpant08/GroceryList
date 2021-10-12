@@ -11,9 +11,9 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/open_sans"
+        android:fontFamily="@font/cabin_bold"
         android:text="Sunday Grocery"
-        android:textColor="@color/primary"
+        android:textColor="@color/secondary"
         android:textSize="18sp" />
     <ImageView
         android:layout_width="24dp"
@@ -38,7 +38,7 @@
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@id/fruit_item"
         android:background="@drawable/custom_quantity_background"
-        android:fontFamily="@font/open_sans_bold_italic"
+        android:fontFamily="@font/cabin_bold"
         android:gravity="center"
         android:text="2"
         android:textColor="@color/secondary"
@@ -66,10 +66,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/custom_quantity_background"
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@id/vegetable_item"
-        android:fontFamily="@font/open_sans_bold_italic"
+        android:background="@drawable/custom_quantity_background"
+        android:fontFamily="@font/cabin_bold"
         android:gravity="center"
         android:text="5"
         android:textColor="@color/secondary"
@@ -89,6 +89,7 @@
         android:layout_marginTop="8dp"
         android:visibility="gone">
     </ImageView>
+
     <TextView
         android:id="@+id/spice_quantity"
         android:layout_width="24dp"
@@ -96,11 +97,11 @@
         android:layout_below="@id/title"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/custom_quantity_background"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@id/spice_item"
-        android:fontFamily="@font/open_sans_bold_italic"
+        android:background="@drawable/custom_quantity_background"
+        android:fontFamily="@font/cabin_bold"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/secondary"
@@ -119,6 +120,7 @@
         android:layout_marginTop="8dp"
         android:visibility="gone">
     </ImageView>
+
     <TextView
         android:id="@+id/bread_quantity"
         android:layout_width="24dp"
@@ -130,7 +132,7 @@
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@id/bread_item"
         android:background="@drawable/custom_quantity_background"
-        android:fontFamily="@font/open_sans_bold_italic"
+        android:fontFamily="@font/cabin_bold"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/secondary"
@@ -149,6 +151,7 @@
         android:layout_marginTop="8dp"
         android:visibility="gone">
     </ImageView>
+
     <TextView
         android:id="@+id/dairy_quantity"
         android:layout_width="24dp"
@@ -159,8 +162,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@id/dairy_item"
-        android:fontFamily="@font/open_sans_bold_italic"
         android:background="@drawable/custom_quantity_background"
+        android:fontFamily="@font/cabin_bold"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/secondary"

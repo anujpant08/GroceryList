@@ -7,7 +7,7 @@
     android:layout_margin="8dp">
 
     <TextView
-        android:id="@+id/item_category"
+        android:id="@+id/final_item_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -20,10 +20,10 @@
     </TextView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/child_grocery_items_recycler_view"
-        android:layout_below="@id/item_category"
+        android:id="@+id/final_child_items_recycler_view"
+        android:layout_below="@id/final_item_category"
         android:layout_marginStart="10dp">
 
     </androidx.recyclerview.widget.RecyclerView>
