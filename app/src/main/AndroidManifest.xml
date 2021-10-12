@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GroceryList">
         <activity
+            android:name=".FinalListActivity"
+            android:exported="true" />
+        <activity
             android:name=".CreateVegetablesListActivity"
             android:exported="true" />
         <activity

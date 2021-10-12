@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,14 +40,28 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
     public DatabaseReference childDatabaseReference = null;
     private String imageString = "";
-    private SharedPreferences.Editor editor = null;
+    private String intentValue = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.create_vegetables_list);
-            SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-            editor = sharedPreferences.edit();
+            Intent intent = getIntent();
+            intentValue = intent.getStringExtra("ClearData");
+            SharedPreferences sharedPreferences = null;
+            if(intentValue != null && intentValue.equals("true")){
+                sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+                if(editor == null){
+                    editor = sharedPreferences.edit();
+                }
+                editor.clear();
+                editor.apply();
+                Log.e(TAG, "clearData in vegetable list activity");
+            }
+            sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+            if(editor == null){
+                editor = sharedPreferences.edit();
+            }
             String vegetableJSON = "";
             String jsonData = sharedPreferences.getString(NEW_LIST, "");
             Type type = new TypeToken<GroceryItem>(){}.getType();
@@ -76,25 +92,39 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
                     //Add bottom popup to show fruit details with fruit image
                     childDatabaseReference = databaseReference.child("Vegetables/" + adapterView.getItemAtPosition(position));
                     if(!isNetworkAvailable()){
-                        bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable", sharedPreferences);
+                        bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                     }else{
                         childDatabaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
                                 Log.e(TAG, "Firebase fruit URL: " + imageString);
-                                bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable", sharedPreferences);
+                                bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                                 Log.e(TAG, "An exception has occurred: ", error.toException());
-                                bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable", sharedPreferences);
+                                bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                             }
                         });
                     }
+                }
+            });
+            ExtendedFloatingActionButton extendedFloatingActionButton = findViewById(R.id.get_spices);
+            extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(CreateVegetablesListActivity.this, FinalListActivity.class);
+                    Gson gson = new Gson();
+                    String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
+                    Log.e(TAG,"new list in vegetables: " + jsonContent);
+                    editor.putString(NEW_LIST, jsonContent);
+                    editor.apply();
+                    startActivity(intent);
+                    intentValue = "";
                 }
             });
         }catch(Exception exception){
@@ -116,13 +146,17 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
         }
     }
     @Override
-    protected void onPause() {
+    protected void onResume() {
         SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
-        editor.putString(NEW_LIST, jsonContent);
-        editor.apply();
-        super.onPause();
+        String jsonData = sharedPreferences.getString(NEW_LIST, "");
+        Type type = new TypeToken<GroceryItem>() {
+        }.getType();
+        if (jsonData != null && !jsonData.equals("")) {
+            Gson gson = new Gson();
+            newGroceryItem = gson.fromJson(jsonData, type);
+        }else{
+            newGroceryItem = new GroceryItem();
+        }
+        super.onResume();
     }
 }

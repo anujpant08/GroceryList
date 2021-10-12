@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_off_white"
     tools:context=".CreateFruitListActivity"
     android:padding="10dp">
 
@@ -13,11 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/cabin_bold"
         android:text="Create New List"
-        android:fontFamily="@font/open_sans_bold"
-        android:textSize="20sp"
-        android:textColor="@color/secondary">
-    </TextView>
+        android:textColor="@color/secondary"
+        android:textSize="24sp" />
     <TextView
         android:id="@+id/create_list_description"
         android:layout_width="wrap_content"
@@ -25,8 +25,8 @@
         android:layout_marginStart="8dp"
         android:text="Select items from various categories"
         android:layout_below="@id/create_list_title"
-        android:fontFamily="@font/open_sans"
-        android:textSize="14sp"
+        android:fontFamily="@font/cabin"
+        android:textSize="16sp"
         android:textColor="@color/secondary">
     </TextView>
 
@@ -46,14 +46,13 @@
         android:id="@+id/search_fruit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Search Fruits"
-        android:gravity="center"
-        android:layout_marginTop="8dp"
         android:layout_below="@id/feature_fruit"
-        android:fontFamily="@font/open_sans"
-        android:textSize="14sp"
-        android:textColor="@color/fruit_red">
-    </TextView>
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cabin"
+        android:gravity="center"
+        android:text="Fun Fact:"
+        android:textColor="@color/secondary"
+        android:textSize="18sp" />
 
     <AutoCompleteTextView
         android:id="@+id/search_text"
@@ -62,7 +61,7 @@
         android:layout_below="@id/search_fruit"
         android:layout_margin="20dp"
         android:backgroundTint="@color/secondary"
-        android:fontFamily="@font/open_sans"
+        android:fontFamily="@font/cabin"
         android:singleLine="true"
         android:hint="Fruit Name"
         android:imeOptions="actionSearch"
@@ -82,8 +81,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:backgroundTint="@color/fruit_red"
+        android:backgroundTint="@color/secondary"
         android:text="Get veggies"
+        android:fontFamily="@font/cabin_bold"
         app:icon="@drawable/ic_round_navigate_next_24"
         app:iconGravity="end"
         app:iconPadding="0dp">

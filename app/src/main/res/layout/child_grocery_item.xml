@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:background="@color/background_off_white">
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/popup_check_box"
@@ -19,7 +20,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_toEndOf="@id/popup_check_box"
-        android:fontFamily="@font/open_sans_bold"
+        android:fontFamily="@font/cabin_bold"
         android:gravity="center_vertical"
         android:text="Sample"
         android:textColor="@color/secondary"

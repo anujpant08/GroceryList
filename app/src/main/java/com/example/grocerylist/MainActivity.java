@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -27,11 +28,15 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
     private GroceryItemAdapter groceryItemAdapter;
     private AutoCompleteTextView searchBox;
     private RecyclerView recyclerView = null;
-
+    public static final String NEW_LIST = "NewList";
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
         searchBox = findViewById(R.id.search_box);
         groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
         groceryItemAdapter.setItemClickListener(this);
@@ -59,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     if(searchBox.isCursorVisible()){
                         searchBox.setCursorVisible(false);
                     }
-                    searchBox.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(MainActivity.this, R.drawable.search_white_24dp), null, null, null);
+                    searchBox.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(MainActivity.this, R.drawable.ic_round_search_24), null, null, null);
                 }else{
                     searchBox.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
                 }
@@ -80,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CreateFruitListActivity.class);
+                intent.putExtra("ClearData", "true");
                 startActivity(intent);
             }
         });
@@ -162,11 +168,5 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         searchBox.setFocusable(false);
         closeKeyboard();
         searchBox.setFocusableInTouchMode(true);
-    }
-
-    @Override
-    protected void onStop() {
-        //clear shared preferences
-        super.onStop();
     }
 }

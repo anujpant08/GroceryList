@@ -2,12 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#58c67c</color>
-    <color name="secondary">#6353db</color>
+    <color name="primary">#C59EEC</color>
+    <color name="secondary">#6D429E</color>
     <color name="fruit_red">#fc5271</color>
     <color name="dark_green">#18863c</color>
     <color name="dark_green_alpha">#A618863C</color>
     <color name="fruit_yellow">#f8d23a</color>
     <color name="dark_red">#a80e2a</color>
     <color name="bread_yellow">#fcc969</color>
+    <color name="background_off_white">#FCF3EF</color>
 </resources>

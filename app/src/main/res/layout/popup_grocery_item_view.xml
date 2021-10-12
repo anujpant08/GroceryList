@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:fontFamily="@font/open_sans"
+        android:fontFamily="@font/cabin_bold"
         android:text="Sample List"
         android:gravity="center"
-        android:textColor="@color/primary"
+        android:textColor="@color/secondary"
         android:textSize="18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/popup_title"
         android:layout_marginTop="8dp"
-        android:background="@color/white">
+        android:background="@color/background_off_white">
 
     </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

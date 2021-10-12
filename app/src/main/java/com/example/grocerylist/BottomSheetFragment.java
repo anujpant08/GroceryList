@@ -34,19 +34,17 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     public static GroceryItem groceryItem = null;
     private View contentView = null;
     private String family = "";
-    private SharedPreferences sharedPreferences = null;
-    private SharedPreferences.Editor editor = null;
 
     public static BottomSheetFragment newInstance() {
         return new BottomSheetFragment();
     }
 
-    public void setItemData(String base64Image, String fruitName, GroceryItem groceryItem, String family, SharedPreferences sharedPreferences){
+    public void setItemData(String base64Image, String fruitName, GroceryItem groceryItem, String family){
+        Log.e(TAG, "grocery item in BottomSheetFragment: " + groceryItem);
         this.base64Image = base64Image;
         this.itemName = fruitName;
         BottomSheetFragment.groceryItem = groceryItem;
         this.family = family;
-        this.sharedPreferences = sharedPreferences;
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,8 +53,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
 
     @Override
     public void setupDialog(Dialog dialog, int style) {
-        sharedPreferences = requireActivity().getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet, null);
         dialog.setContentView(contentView);
         Log.e(TAG,"base64 data: " + base64Image);
@@ -107,23 +103,19 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         fruit.setQuantity(quantityValue);
         fruit.setWeight(weightValue);
         Log.e(TAG, "Fruit added: " + fruit);
-        if(this.groceryItem != null){
-            Set<Fruit> fruits;
-            if(this.groceryItem.getFruitList() != null){
-                fruits = new LinkedHashSet<>(this.groceryItem.getFruitList());
-            }else{
-                fruits = new LinkedHashSet<>();
-            }
-            fruits.remove(fruit);
-            fruits.add(fruit);//Updating fruit list with new fruit
-            this.groceryItem.setFruitList(new ArrayList<>(fruits));
-            Log.e(TAG, "new grocery item: " +this.groceryItem);
-//            Gson gson = new Gson();
-//            String jsonContent = gson.toJson(this.groceryItem);
-//            Log.e(TAG,"new list in fruits: " + this.groceryItem);
-//            editor.putString(NEW_LIST, jsonContent);
-//            editor.apply();
+        if(BottomSheetFragment.groceryItem == null){
+            BottomSheetFragment.groceryItem = new GroceryItem();
         }
+        Set<Fruit> fruits;
+        if (BottomSheetFragment.groceryItem.getFruitList() != null) {
+            fruits = new LinkedHashSet<>(BottomSheetFragment.groceryItem.getFruitList());
+        } else {
+            fruits = new LinkedHashSet<>();
+        }
+        fruits.remove(fruit);
+        fruits.add(fruit);//Updating fruit list with new fruit
+        BottomSheetFragment.groceryItem.setFruitList(new ArrayList<>(fruits));
+        Log.e(TAG, "new grocery item: " + BottomSheetFragment.groceryItem);
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.fruit_red));
         snackbar.setActionTextColor(getResources().getColor(R.color.white));
@@ -136,23 +128,18 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         vegetable.setQuantity(quantityValue);
         vegetable.setWeight(weightValue);
         Log.e(TAG, "Vegetable added: " + vegetable);
-        if(this.groceryItem != null){
-            Set<Vegetable> vegetables;
-            if(this.groceryItem.getVegetableList() != null){
-                vegetables = new LinkedHashSet<>(this.groceryItem.getVegetableList());
-            }else{
-                vegetables = new LinkedHashSet<>();
-            }
-            vegetables.remove(vegetable);
-            vegetables.add(vegetable);//Updating fruit list with new fruit
-            this.groceryItem.setVegetableList(new ArrayList<>(vegetables));
-            Log.e(TAG, "new grocery item: " +this.groceryItem);
-            Gson gson = new Gson();
-            String jsonContent = gson.toJson(this.groceryItem);
-            Log.e(TAG,"new list in vegetables: " + jsonContent);
-            editor.putString(NEW_LIST, jsonContent);
-            editor.apply();
+        if(BottomSheetFragment.groceryItem == null){
+            BottomSheetFragment.groceryItem = new GroceryItem();
         }
+        Set<Vegetable> vegetables;
+        if (BottomSheetFragment.groceryItem.getVegetableList() != null) {
+            vegetables = new LinkedHashSet<>(BottomSheetFragment.groceryItem.getVegetableList());
+        } else {
+            vegetables = new LinkedHashSet<>();
+        }
+        vegetables.remove(vegetable);
+        vegetables.add(vegetable);
+        BottomSheetFragment.groceryItem.setVegetableList(new ArrayList<>(vegetables));
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.dark_green));
         snackbar.setActionTextColor(getResources().getColor(R.color.white));
@@ -161,6 +148,6 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     public static GroceryItem getGroceryItem() {
-        return groceryItem;
+        return BottomSheetFragment.groceryItem;
     }
 }

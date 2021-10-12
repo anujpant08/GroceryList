@@ -43,22 +43,34 @@ public class CreateFruitListActivity extends AppCompatActivity {
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
     public DatabaseReference childDatabaseReference = null;
     private String imageString = "";
+    private String intentValue = "";
     public BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance();
-    public static GroceryItem newGroceryItem = null;
+    public static GroceryItem newGroceryItem = new GroceryItem();
+    public static SharedPreferences.Editor editor = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.create_fruits_list);
+            Intent intent = getIntent();
+            intentValue = intent.getStringExtra("ClearData");
+            if(intentValue != null && intentValue.equals("true")){
+                Log.e(TAG, "claerdata oncreate furit list activity");
+                SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+                editor = sharedPreferences.edit();
+                editor.clear();
+                editor.apply();
+                newGroceryItem = new GroceryItem();
+                BottomSheetFragment.groceryItem = null;
+            }
             ImageView imageView = (ImageView)findViewById(R.id.feature_fruit);
             Glide.with(this).load(R.drawable.fruit).into(imageView);
             String fruitsJSON = "";
             SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-//            editor.clear();
-//            editor.apply();
-            Log.e(TAG, "shared prefs cleared!");
-            newGroceryItem = new GroceryItem();
+            if(editor == null){
+                editor = sharedPreferences.edit();
+            }
+            //newGroceryItem = new GroceryItem();
             if(allFruits.isEmpty()){
                 InputStream inputStream = this.getAssets().open("fruits.json");
                 int size = inputStream.available();
@@ -78,7 +90,7 @@ public class CreateFruitListActivity extends AppCompatActivity {
                     //Add bottom popup to show fruit details with fruit image
                     childDatabaseReference = databaseReference.child("Fruits/" + adapterView.getItemAtPosition(position));
                     if(!isNetworkAvailable()){
-                        bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit", sharedPreferences);
+                        bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                         bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                     }else{
                         childDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -86,14 +98,14 @@ public class CreateFruitListActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
                                 Log.e(TAG, "Firebase fruit URL: " + imageString);
-                                bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit", sharedPreferences);
+                                bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                                 Log.e(TAG, "An exception has occurred: ", error.toException());
-                                bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit", sharedPreferences);
+                                bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                             }
                         });
@@ -105,6 +117,10 @@ public class CreateFruitListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(CreateFruitListActivity.this, CreateVegetablesListActivity.class);
+                    if(intentValue != null && intentValue.equals("true")){
+                        intent.putExtra("ClearData", "true");
+                    }
+                    intentValue = "";
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
                     Log.e(TAG,"new list in fruits: " + jsonContent);
@@ -147,15 +163,16 @@ public class CreateFruitListActivity extends AppCompatActivity {
         if (jsonData != null && !jsonData.equals("")) {
             Gson gson = new Gson();
             newGroceryItem = gson.fromJson(jsonData, type);
+        }else{
+            newGroceryItem = new GroceryItem();
         }
+        Log.e(TAG, "resume of fruit list activity: " + newGroceryItem);
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
         SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor = sharedPreferences.edit();
         editor.clear();
         editor.apply();
         super.onDestroy();
