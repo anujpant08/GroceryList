@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:background="@color/background_off_white">
 
-    <CheckBox
-        android:id="@+id/final_popup_check_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+    <ImageView
+        android:id="@+id/final_item_image"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Grocery Item">
 
-    </CheckBox>
+    </ImageView>
 
     <TextView
         android:id="@+id/final_child_item_name"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
-        android:layout_toEndOf="@id/final_popup_check_box"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_toEndOf="@id/final_item_image"
         android:fontFamily="@font/cabin_bold"
         android:gravity="center_vertical"
         android:text="Sample"
@@ -26,19 +34,61 @@
         android:textSize="16sp">
 
     </TextView>
+
+    <ImageButton
+        android:id="@+id/decrease"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/final_child_item_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#F1D9CF"
+        android:layout_toEndOf="@id/final_item_image"
+        android:contentDescription="Decrease quantity"
+        android:src="@drawable/ic_round_remove_24">
+
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/increase"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/final_child_item_name"
+        android:layout_marginStart="8dp"
+        android:backgroundTint="#F1D9CF"
+        android:src="@drawable/ic_round_add_24"
+        android:layout_toEndOf="@id/final_item_quantity"
+        android:contentDescription="Decrease quantity"
+        app:tint="@color/secondary">
+
+    </ImageButton>
+
     <TextView
         android:id="@+id/final_item_quantity"
         android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="8dp"
-        android:layout_toEndOf="@id/final_popup_check_box"
+        android:layout_height="30dp"
         android:layout_below="@id/final_child_item_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toEndOf="@id/decrease"
         android:fontFamily="@font/cabin"
-        android:gravity="center_vertical"
-        android:text="Sample"
+        android:gravity="center"
         android:textColor="@color/secondary"
         android:textSize="16sp">
 
     </TextView>
+
+    <ImageView
+        android:id="@+id/final_remove_item"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="Remove Item"
+        android:src="@drawable/ic_round_close_24"
+        app:tint="@color/primary">
+
+    </ImageView>
 
 </RelativeLayout>

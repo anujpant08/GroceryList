@@ -16,14 +16,14 @@
         <entry key="app/src/main/res/drawable/home_gradient.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/search_box_drawable.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_create_new_list.xml" value="0.21422101449275363" />
-        <entry key="app/src/main/res/layout/activity_final_list.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_final_list.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/activity_view_item_bottom.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/child_grocery_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/create_fruits_list.xml" value="0.21422101449275363" />
-        <entry key="app/src/main/res/layout/create_vegetables_list.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/layout/create_vegetables_list.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/custom_search_view.xml" value="0.375" />
-        <entry key="app/src/main/res/layout/final_child_custom_view.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/final_child_custom_view.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/final_list_parent_custom_view.xml" value="0.1743659420289855" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/grocery_item_custom_view.xml" value="0.21422101449275363" />

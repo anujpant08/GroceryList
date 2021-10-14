@@ -18,8 +18,11 @@ import android.widget.AutoCompleteTextView;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ItemClickListener {
@@ -28,15 +31,12 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
     private GroceryItemAdapter groceryItemAdapter;
     private AutoCompleteTextView searchBox;
     private RecyclerView recyclerView = null;
-    public static final String NEW_LIST = "NewList";
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    String SAVEDLIST = "SavedList";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
-        editor = sharedPreferences.edit();
         searchBox = findViewById(R.id.search_box);
         groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
         groceryItemAdapter.setItemClickListener(this);
@@ -44,7 +44,18 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         recyclerView.setAdapter(groceryItemAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        createDummyList(groceryItemList);
+        //createDummyList(groceryItemList);
+        SharedPreferences sharedPreferencesGroceryList = this.getSharedPreferences(SAVEDLIST, Context.MODE_PRIVATE);
+        String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");
+        Type typeList = new TypeToken<List<GroceryItem>>(){}.getType();
+        if(listsJsonData != null && !listsJsonData.equals("")){
+            Log.e(TAG, "already saved lists: " + listsJsonData);
+            Gson gson = new Gson();
+            groceryItemList = gson.fromJson(listsJsonData, typeList);
+            Log.e(TAG,"Gor this list from sharedPrefs : " + groceryItemList);
+            groceryItemAdapter.updateList(groceryItemList);
+        }
+
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -168,5 +179,15 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         searchBox.setFocusable(false);
         closeKeyboard();
         searchBox.setFocusableInTouchMode(true);
+        SharedPreferences sharedPreferencesGroceryList = this.getSharedPreferences(SAVEDLIST, Context.MODE_PRIVATE);
+        String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");
+        Type typeList = new TypeToken<List<GroceryItem>>(){}.getType();
+        if(listsJsonData != null && !listsJsonData.equals("")){
+            Log.e(TAG, "already saved lists: " + listsJsonData);
+            Gson gson = new Gson();
+            groceryItemList = gson.fromJson(listsJsonData, typeList);
+            Log.e(TAG,"Gor this list from sharedPrefs : " + groceryItemList);
+            groceryItemAdapter.updateList(groceryItemList);
+        }
     }
 }

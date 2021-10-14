@@ -64,13 +64,13 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/secondary"
+        android:backgroundTint="@color/primary"
         android:fontFamily="@font/cabin"
         android:hint="Vegetable Name"
         android:imeOptions="actionSearch"
         android:singleLine="true"
         android:textColor="@color/secondary"
-        android:textColorHint="#806353DB"
+        android:textColorHint="@color/primary"
         android:textSize="16sp">
 
     </AutoCompleteTextView>
