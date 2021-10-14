@@ -30,7 +30,7 @@ public class Vegetable implements  ItemCategoryInterface{
 
     @Override
     public String getWeight() {
-        return null;
+        return this.weight;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Vegetable implements  ItemCategoryInterface{
 
     @Override
     public String getQuantity() {
-        return null;
+        return this.quantity;
     }
 
 

@@ -18,10 +18,12 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
     private static final String TAG = "FinalListParentAdapter";
     List<List<? extends ItemCategoryInterface>> subItemsList = null;
     private final Context context;
+    private GroceryItem groceryItem;
 
-    public FinalListParentAdapter(Context context, List<List<? extends ItemCategoryInterface>> subItemsList) {
+    public FinalListParentAdapter(Context context, List<List<? extends ItemCategoryInterface>> subItemsList, GroceryItem groceryItem) {
         this.context = context;
         this.subItemsList = subItemsList;
+        this.groceryItem = groceryItem;
     }
 
     @NonNull
@@ -50,7 +52,7 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
         }
         Log.e(TAG, "items: " + subItemsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context);
-        FinalChildGroceryItemsAdapter finalChildGroceryItemsAdapter = new FinalChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position));
+        FinalChildGroceryItemsAdapter finalChildGroceryItemsAdapter = new FinalChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position), groceryItem);
         RecyclerView.OnItemTouchListener scrollTouchListener = new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, MotionEvent e) {
