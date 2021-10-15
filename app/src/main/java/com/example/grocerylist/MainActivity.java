@@ -2,10 +2,13 @@ package com.example.grocerylist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,7 +18,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         recyclerView.setLayoutManager(layoutManager);
         //createDummyList(groceryItemList);
         SharedPreferences sharedPreferencesGroceryList = this.getSharedPreferences(SAVEDLIST, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferencesGroceryList.edit();
         String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");
         Type typeList = new TypeToken<List<GroceryItem>>(){}.getType();
         if(listsJsonData != null && !listsJsonData.equals("")){
@@ -101,6 +107,48 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             }
         });
         Log.e(TAG, "Final list: " + groceryItemList);
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                Toast.makeText(MainActivity.this, "on Move", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
+
+                new MaterialAlertDialogBuilder(MainActivity.this)
+                        .setMessage("Delete " + (groceryItemList.get(viewHolder.getAdapterPosition()).getTitle().equals("") ? " " : groceryItemList.get(
+                                viewHolder.getAdapterPosition()).getTitle() + " ") + "List?")
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        groceryItemAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                    }
+                })
+                .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        int position = viewHolder.getAdapterPosition();
+                        groceryItemList.remove(position);
+                        groceryItemAdapter.notifyItemRemoved(position);
+                        groceryItemAdapter.notifyDataSetChanged();
+                        Gson gson = new Gson();
+                        String jsonContent = gson.toJson(groceryItemList);
+                        editor.putString(SAVEDLIST, jsonContent);
+                        editor.apply();
+                        recyclerView.setAdapter(groceryItemAdapter);
+                    }
+                })
+                .show()
+                .setCanceledOnTouchOutside(false);
+                //Toast.makeText(MainActivity.this, "on Swiped ", Toast.LENGTH_SHORT).show();
+                //Remove swiped item from list and notify the RecyclerView
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
     private void closeKeyboard() {
