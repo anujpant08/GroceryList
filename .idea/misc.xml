@@ -29,6 +29,7 @@
         <entry key="app/src/main/res/layout/grocery_item_custom_view.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/popup_custom_item_view.xml" value="0.45" />
         <entry key="app/src/main/res/layout/popup_grocery_item_view.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/recents_custom_view.xml" value="0.23020833333333332" />
       </map>
     </option>
   </component>
