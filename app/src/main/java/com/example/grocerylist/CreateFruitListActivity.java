@@ -39,7 +39,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class CreateFruitListActivity extends AppCompatActivity {
+public class CreateFruitListActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "CreateNewListActivity";
     public static final List<String> allFruits = new LinkedList<>();
     public static final String NEW_LIST = "NewList";
@@ -88,6 +88,7 @@ public class CreateFruitListActivity extends AppCompatActivity {
             recentsRecyclerView.setLayoutManager(gridLayoutManager);
             recentsRecyclerView.setAdapter(recentItemsAdapter);
             recentItemsAdapter.notifyDataSetChanged();
+            recentItemsAdapter.setItemClickListener(this);
             //newGroceryItem = new GroceryItem();
             if(allFruits.isEmpty()){
                 InputStream inputStream = this.getAssets().open("fruits.json");
@@ -116,6 +117,8 @@ public class CreateFruitListActivity extends AppCompatActivity {
                         recentEditor.apply();
                         recentItems.clear();
                         recentItems.addAll(recents);
+                        recentItemsAdapter.notifyDataSetChanged();
+                        recentsRecyclerView.setAdapter(recentItemsAdapter);
                     }else{
                         childDatabaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -130,6 +133,8 @@ public class CreateFruitListActivity extends AppCompatActivity {
                                 recentEditor.apply();
                                 recentItems.clear();
                                 recentItems.addAll(recents);
+                                recentItemsAdapter.notifyDataSetChanged();
+                                recentsRecyclerView.setAdapter(recentItemsAdapter);
                             }
 
                             @Override
@@ -143,6 +148,8 @@ public class CreateFruitListActivity extends AppCompatActivity {
                                 recentEditor.apply();
                                 recentItems.clear();
                                 recentItems.addAll(recents);
+                                recentItemsAdapter.notifyDataSetChanged();
+                                recentsRecyclerView.setAdapter(recentItemsAdapter);
                             }
                         });
                     }
@@ -212,5 +219,21 @@ public class CreateFruitListActivity extends AppCompatActivity {
         editor.clear();
         editor.apply();
         super.onDestroy();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        String[] data = recentItems.get(position).split("##");
+        if(data.length > 1){
+            bottomSheetFragment.setItemData(recentItems.get(position).split("##")[1], recentItems.get(position).split("##")[0], newGroceryItem, "Fruit");
+        }else{
+            bottomSheetFragment.setItemData("", recentItems.get(position).split("##")[0], newGroceryItem, "Fruit");
+        }
+        bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+    }
+
+    @Override
+    public void onLongClick(View view, int position) {
+
     }
 }

@@ -20,6 +20,7 @@ public class RecentItemsAdapter extends RecyclerView.Adapter<RecentItemsAdapter.
     private static final String TAG = "RecentItemsAdapter";
     private final List<String> recentItems;
     private final Context context;
+    private ItemClickListener itemClickListener;
     public RecentItemsAdapter(List<String> recentItems, Context context) {
         this.recentItems = recentItems;
         this.context = context;
@@ -49,13 +50,23 @@ public class RecentItemsAdapter extends RecyclerView.Adapter<RecentItemsAdapter.
     public int getItemCount() {
         return recentItems.size();
     }
-    public class RecentsViewHolder extends RecyclerView.ViewHolder{
+
+    public void setItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
+    }
+    public class RecentsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView recentsImageView;
         TextView recentsItemName;
         public RecentsViewHolder(@NonNull View itemView) {
             super(itemView);
             recentsImageView = (ImageView) itemView.findViewById(R.id.recents_item_image);
             recentsItemName = (TextView) itemView.findViewById(R.id.recents_item_name);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view, getAdapterPosition());
         }
     }
 }
