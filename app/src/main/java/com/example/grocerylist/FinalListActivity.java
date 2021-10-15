@@ -12,8 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -94,24 +97,30 @@ public class FinalListActivity extends CreateFruitListActivity {
                 @Override
                 public void onClick(View view) {
                     String title = finalListName.getText().toString();
-                    newGroceryItem.setTitle(title);
-                    for(List<? extends ItemCategoryInterface> subList : subItemsList){
-                        if(subList.get(0).getFamily().equals("Fruits")){
-                            newGroceryItem.setFruitList((List<Fruit>) subList);
-                        }else if(subList.get(0).getFamily().equals("Vegetables")){
-                            newGroceryItem.setVegetableList((List<Vegetable>) subList);
+                    if(title.length() == 0){
+                        Snackbar.make(view, "Please provide the list name", Snackbar.LENGTH_LONG)
+                                .setAnchorView(extendedFloatingActionButton)
+                                .show();
+                    }else{
+                        newGroceryItem.setTitle(title);
+                        for(List<? extends ItemCategoryInterface> subList : subItemsList){
+                            if(subList.get(0).getFamily().equals("Fruits")){
+                                newGroceryItem.setFruitList((List<Fruit>) subList);
+                            }else if(subList.get(0).getFamily().equals("Vegetables")){
+                                newGroceryItem.setVegetableList((List<Vegetable>) subList);
+                            }
                         }
+                        Log.e(TAG, "final list saved: " + newGroceryItem);
+                        savedLists.add(newGroceryItem);
+                        Gson gson = new Gson();
+                        String jsonContent = gson.toJson(savedLists);
+                        Log.e(TAG,"all list in saved lists: " + jsonContent);
+                        editor.putString(SAVEDLIST, jsonContent);
+                        editor.apply();
+                        Intent intent = new Intent(FinalListActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
-                    Log.e(TAG, "final list saved: " + newGroceryItem);
-                    savedLists.add(newGroceryItem);
-                    Gson gson = new Gson();
-                    String jsonContent = gson.toJson(savedLists);
-                    Log.e(TAG,"all list in saved lists: " + jsonContent);
-                    editor.putString(SAVEDLIST, jsonContent);
-                    editor.apply();
-                    Intent intent = new Intent(FinalListActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
                 }
             });
 
