@@ -2,6 +2,9 @@ package com.example.grocerylist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -24,21 +28,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class CreateFruitListActivity extends AppCompatActivity {
     private static final String TAG = "CreateNewListActivity";
     public static final List<String> allFruits = new LinkedList<>();
     public static final String NEW_LIST = "NewList";
+    public static final String RECENT_FRUIT_LIST = "RecentFruitList";
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
     public DatabaseReference childDatabaseReference = null;
@@ -47,6 +52,7 @@ public class CreateFruitListActivity extends AppCompatActivity {
     public BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance();
     public static GroceryItem newGroceryItem = new GroceryItem();
     public static SharedPreferences.Editor editor = null;
+    private List<String> recentItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
@@ -69,9 +75,19 @@ public class CreateFruitListActivity extends AppCompatActivity {
             Glide.with(this).load(R.drawable.fruit).into(imageView);
             String fruitsJSON = "";
             SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
+            SharedPreferences recentsSharedPrefs = this.getSharedPreferences(RECENT_FRUIT_LIST, Context.MODE_PRIVATE);
+            SharedPreferences.Editor recentEditor = recentsSharedPrefs.edit();
             if(editor == null){
                 editor = sharedPreferences.edit();
             }
+            recentItems = new LinkedList<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
+            Log.e(TAG, "recents list: " + recentItems);
+            RecyclerView recentsRecyclerView = findViewById(R.id.recents_recycler_view);
+            RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+            recentsRecyclerView.setLayoutManager(gridLayoutManager);
+            recentsRecyclerView.setAdapter(recentItemsAdapter);
+            recentItemsAdapter.notifyDataSetChanged();
             //newGroceryItem = new GroceryItem();
             if(allFruits.isEmpty()){
                 InputStream inputStream = this.getAssets().open("fruits.json");
@@ -94,6 +110,12 @@ public class CreateFruitListActivity extends AppCompatActivity {
                     if(!isNetworkAvailable()){
                         bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                         bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+                        Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
+                        recents.add(adapterView.getItemAtPosition(position) + "##");
+                        recentEditor.putStringSet(RECENT_FRUIT_LIST, recents);
+                        recentEditor.apply();
+                        recentItems.clear();
+                        recentItems.addAll(recents);
                     }else{
                         childDatabaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
@@ -102,6 +124,12 @@ public class CreateFruitListActivity extends AppCompatActivity {
                                 Log.e(TAG, "Firebase fruit URL: " + imageString);
                                 bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
+                                recents.add(adapterView.getItemAtPosition(position) + "##" + imageString);
+                                recentEditor.putStringSet(RECENT_FRUIT_LIST, recents);
+                                recentEditor.apply();
+                                recentItems.clear();
+                                recentItems.addAll(recents);
                             }
 
                             @Override
@@ -109,6 +137,12 @@ public class CreateFruitListActivity extends AppCompatActivity {
                                 Log.e(TAG, "An exception has occurred: ", error.toException());
                                 bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
+                                recents.add(adapterView.getItemAtPosition(position) + "##");
+                                recentEditor.putStringSet(RECENT_FRUIT_LIST, recents);
+                                recentEditor.apply();
+                                recentItems.clear();
+                                recentItems.addAll(recents);
                             }
                         });
                     }
@@ -129,6 +163,17 @@ public class CreateFruitListActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            TextView clearTextView = findViewById(R.id.recents_clear);
+            clearTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recentItemsAdapter.notifyItemRangeRemoved(0, recentItems.size());
+                    recentItems.clear();
+                    recentEditor.putStringSet(RECENT_FRUIT_LIST, null);
+                    recentEditor.apply();
+                }
+            });
+
         }catch(Exception exception){
             Log.e(TAG, "An exception occurred: ", exception);
         }

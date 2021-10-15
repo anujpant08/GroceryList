@@ -106,12 +106,13 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
         holder.removeItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                eachCategoryItems.remove(holder.getAdapterPosition());
-                switch (eachCategoryItems.get(position).getFamily()) {
+                switch (eachCategoryItems.get(holder.getAdapterPosition()).getFamily()) {
                     case "Fruits":
+                        eachCategoryItems.remove(holder.getAdapterPosition());
                         newGroceryItem.setFruitList((List<Fruit>) eachCategoryItems);
                         break;
                     case "Vegetables":
+                        eachCategoryItems.remove(holder.getAdapterPosition());
                         newGroceryItem.setVegetableList((List<Vegetable>) eachCategoryItems);
                         break;
                 }
