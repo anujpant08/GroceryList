@@ -1,6 +1,7 @@
 package com.example.grocerylist;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,11 @@ public class RecentItemsAdapter extends RecyclerView.Adapter<RecentItemsAdapter.
     private final List<String> recentItems;
     private final Context context;
     private ItemClickListener itemClickListener;
-    public RecentItemsAdapter(List<String> recentItems, Context context) {
+    private String family;
+    public RecentItemsAdapter(List<String> recentItems, Context context, String family) {
         this.recentItems = recentItems;
         this.context = context;
+        this.family = family;
     }
 
     @NonNull
@@ -36,12 +39,20 @@ public class RecentItemsAdapter extends RecyclerView.Adapter<RecentItemsAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecentItemsAdapter.RecentsViewHolder holder, int position) {
         String[] data = recentItems.get(holder.getAdapterPosition()).split("##");
-        if(data.length > 0){
-            holder.recentsItemName.setText(data[0]);
-            if(data.length > 1 && !data[1].equals("")){
-                Glide.with(context).load(data[1]).into(holder.recentsImageView);
-            }else{
-                Glide.with(context).load(R.drawable.fruit).into(holder.recentsImageView);
+        Log.e(TAG, "DATA in recent adapter is: " + recentItems.get(holder.getAdapterPosition()));
+        holder.recentsItemName.setText(data[0]);
+        if(data.length > 1 && data[1].length() > 0 && !data[1].equals("null")){
+            Glide.with(context).load(data[1]).into(holder.recentsImageView);
+        }else{
+            Log.e(TAG, "family in recent adapter is: " + family);
+            switch(family){
+                case "Fruit":
+                    Glide.with(context).load(R.drawable.fruit).into(holder.recentsImageView);
+                    break;
+                case "Vegetable":
+                    Glide.with(context).load(R.drawable.vegetables).into(holder.recentsImageView);
+                    break;
+
             }
         }
     }

@@ -2,6 +2,8 @@ package com.example.grocerylist;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -30,10 +33,12 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
-public class CreateVegetablesListActivity extends CreateFruitListActivity {
+public class CreateVegetablesListActivity extends CreateFruitListActivity implements ItemClickListener {
     private static final String TAG = "CreateVegListActivity";
     public static final List<String> allVegetables = new LinkedList<>();
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -41,6 +46,8 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
     public DatabaseReference childDatabaseReference = null;
     private String imageString = "";
     private String intentValue = "";
+    private static final String RECENT_VEGGIES_LIST = "RecentVeggiesList";
+    private List<String> recentItems;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try{
@@ -72,6 +79,16 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
                 vegetableJSON = new String(buffer, StandardCharsets.UTF_8);
                 parseJSON(vegetableJSON);
             }
+            SharedPreferences recentsSharedPrefs = this.getSharedPreferences(RECENT_VEGGIES_LIST, Context.MODE_PRIVATE);
+            SharedPreferences.Editor recentEditor = recentsSharedPrefs.edit();
+            recentItems = new LinkedList<>(recentsSharedPrefs.getStringSet(RECENT_VEGGIES_LIST, new LinkedHashSet<>()));
+            RecyclerView recentsRecyclerView = findViewById(R.id.recents_veggies_recycler_view);
+            RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this, "Vegetable");
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
+            recentsRecyclerView.setLayoutManager(gridLayoutManager);
+            recentsRecyclerView.setAdapter(recentItemsAdapter);
+            recentItemsAdapter.notifyDataSetChanged();
+            recentItemsAdapter.setItemClickListener(this);
             AutoCompleteTextView searchBox = (AutoCompleteTextView) findViewById(R.id.search_text_vegetable);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_search_view, allVegetables);
             searchBox.setThreshold(1);
@@ -83,14 +100,30 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
                     childDatabaseReference = databaseReference.child("Vegetables/" + adapterView.getItemAtPosition(position));
                     if(!isNetworkAvailable()){
                         bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
+                        Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_VEGGIES_LIST, new LinkedHashSet<>()));
+                        recents.add(adapterView.getItemAtPosition(position) + "##");
+                        recentEditor.putStringSet(RECENT_VEGGIES_LIST, recents);
+                        recentEditor.apply();
+                        recentItems.clear();
+                        recentItems.addAll(recents);
+                        recentItemsAdapter.notifyDataSetChanged();
+                        recentsRecyclerView.setAdapter(recentItemsAdapter);
                     }else{
                         childDatabaseReference.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
-                                Log.e(TAG, "Firebase fruit URL: " + imageString);
+                                Log.e(TAG, "Firebase vegetable URL: " + imageString);
                                 bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_VEGGIES_LIST, new LinkedHashSet<>()));
+                                recents.add(adapterView.getItemAtPosition(position) + "##" + imageString);
+                                recentEditor.putStringSet(RECENT_VEGGIES_LIST, recents);
+                                recentEditor.apply();
+                                recentItems.clear();
+                                recentItems.addAll(recents);
+                                recentItemsAdapter.notifyDataSetChanged();
+                                recentsRecyclerView.setAdapter(recentItemsAdapter);
                             }
 
                             @Override
@@ -98,6 +131,14 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
                                 Log.e(TAG, "An exception has occurred: ", error.toException());
                                 bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_VEGGIES_LIST, new LinkedHashSet<>()));
+                                recents.add(adapterView.getItemAtPosition(position) + "##");
+                                recentEditor.putStringSet(RECENT_VEGGIES_LIST, recents);
+                                recentEditor.apply();
+                                recentItems.clear();
+                                recentItems.addAll(recents);
+                                recentItemsAdapter.notifyDataSetChanged();
+                                recentsRecyclerView.setAdapter(recentItemsAdapter);
                             }
                         });
                     }
@@ -116,6 +157,16 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
                     editor.apply();
                     startActivity(intent);
                     intentValue = "";
+                }
+            });
+            TextView clearTextView = findViewById(R.id.recents_veggies_clear);
+            clearTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    recentItemsAdapter.notifyItemRangeRemoved(0, recentItems.size());
+                    recentItems.clear();
+                    recentEditor.putStringSet(RECENT_VEGGIES_LIST, null);
+                    recentEditor.apply();
                 }
             });
         }catch(Exception exception){
@@ -149,5 +200,15 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity {
             newGroceryItem = new GroceryItem();
         }
         super.onResume();
+    }
+    @Override
+    public void onClick(View view, int position) {
+        String[] data = recentItems.get(position).split("##");
+        if(data.length > 1){
+            bottomSheetFragment.setItemData(recentItems.get(position).split("##")[1], recentItems.get(position).split("##")[0], newGroceryItem, "Vegetable");
+        }else{
+            bottomSheetFragment.setItemData("", recentItems.get(position).split("##")[0], newGroceryItem, "Vegetable");
+        }
+        bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
     }
 }

@@ -43,7 +43,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
     private static final String TAG = "CreateNewListActivity";
     public static final List<String> allFruits = new LinkedList<>();
     public static final String NEW_LIST = "NewList";
-    public static final String RECENT_FRUIT_LIST = "RecentFruitList";
+    private static final String RECENT_FRUIT_LIST = "RecentFruitList";
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final DatabaseReference databaseReference = firebaseDatabase.getReference();
     public DatabaseReference childDatabaseReference = null;
@@ -83,7 +83,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
             recentItems = new LinkedList<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
             Log.e(TAG, "recents list: " + recentItems);
             RecyclerView recentsRecyclerView = findViewById(R.id.recents_recycler_view);
-            RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this);
+            RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this, "Fruit");
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
             recentsRecyclerView.setLayoutManager(gridLayoutManager);
             recentsRecyclerView.setAdapter(recentItemsAdapter);
