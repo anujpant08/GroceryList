@@ -244,8 +244,9 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             Log.e(TAG, "already saved lists: " + listsJsonData);
             Gson gson = new Gson();
             groceryItemList = gson.fromJson(listsJsonData, typeList);
-            Log.e(TAG,"Gor this list from sharedPrefs : " + groceryItemList);
-            groceryItemAdapter.updateList(groceryItemList);
+            Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
+            groceryItemAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(groceryItemAdapter);// To reflect display items after filtering.
         }
     }
 }
