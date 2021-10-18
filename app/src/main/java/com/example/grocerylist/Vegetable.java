@@ -66,7 +66,7 @@ public class Vegetable implements  ItemCategoryInterface{
     @NonNull
     @Override
     public String toString() {
-        return "Bread{" +
+        return "Vegetable{" +
                 "name='" + name + '\'' +
                 ", weight=" + weight +
                 ", quantity=" + quantity +

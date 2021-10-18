@@ -2,6 +2,8 @@ package com.example.grocerylist;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 public class Spice implements  ItemCategoryInterface{
     private String name = "";
     private String weight = "";
@@ -28,7 +30,7 @@ public class Spice implements  ItemCategoryInterface{
 
     @Override
     public String getWeight() {
-        return null;
+        return this.weight;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class Spice implements  ItemCategoryInterface{
 
     @Override
     public String getQuantity() {
-        return null;
+        return this.quantity;
     }
 
 
@@ -47,10 +49,23 @@ public class Spice implements  ItemCategoryInterface{
         return "Spices";
     }
 
+    @Override
+    public boolean equals(Object spiceObject) {
+        if (this == spiceObject) return true;
+        if (spiceObject == null || getClass() != spiceObject.getClass()) return false;
+        Spice spice = (Spice) spiceObject;
+        return this.name.equals(spice.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.name);
+    }
+
     @NonNull
     @Override
     public String toString() {
-        return "Bread{" +
+        return "Spice{" +
                 "name='" + name + '\'' +
                 ", weight=" + weight +
                 ", quantity=" + quantity +

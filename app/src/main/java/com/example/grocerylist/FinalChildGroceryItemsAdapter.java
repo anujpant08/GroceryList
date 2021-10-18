@@ -62,6 +62,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                 case "Vegetables":
                     Glide.with(context).load(R.drawable.vegetables).into(holder.itemImage);
                     break;
+                case "Spices":
+                    Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
+                    break;
             }
         }else{
             childDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -76,6 +79,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                                 break;
                             case "Vegetables":
                                 Glide.with(context).load(R.drawable.vegetables).into(holder.itemImage);
+                                break;
+                            case "Spices":
+                                Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
                                 break;
                         }
                     }else{
@@ -92,6 +98,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                             break;
                         case "Vegetables":
                             Glide.with(context).load(R.drawable.vegetables).into(holder.itemImage);
+                            break;
+                        case "Spices":
+                            Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
                             break;
                     }
                 }
@@ -115,6 +124,10 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                         eachCategoryItems.remove(holder.getAdapterPosition());
                         newGroceryItem.setVegetableList((List<Vegetable>) eachCategoryItems);
                         break;
+                    case "Spices":
+                        eachCategoryItems.remove(holder.getAdapterPosition());
+                        newGroceryItem.setSpiceList((List<Spice>) eachCategoryItems);
+                        break;
                 }
                 BottomSheetFragment.groceryItem = newGroceryItem;
                 notifyDataSetChanged();
@@ -125,16 +138,16 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
             public void onClick(View view) {
                 if(holder.itemQuantityTextView.getText() != null && !holder.itemQuantityTextView.getText().equals("")){
                     String text = holder.itemQuantityTextView.getText().toString();
-                    int value;
+                    double value;
                     if(text.contains("Kg")){
-                        value = Integer.parseInt(text.substring(0, text.indexOf("K")).trim());
+                        value = Double.parseDouble(text.substring(0, text.indexOf("K")).trim());
                         if(value > 1){
                             --value;
                             holder.itemQuantityTextView.setText(value + " Kg");
                             eachCategoryItems.get(holder.getAdapterPosition()).setWeight(holder.itemQuantityTextView.getText().toString());
                         }
                     }else{
-                        value = Integer.parseInt(text.substring(0, text.indexOf("Q")).trim());
+                        value = Double.parseDouble(text.substring(0, text.indexOf("Q")).trim());
                         if(value > 1){
                             --value;
                             Log.e(TAG, "value is: " + value + " text is:" + text);
@@ -149,6 +162,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                         case "Vegetables":
                             newGroceryItem.setVegetableList((List<Vegetable>) eachCategoryItems);
                             break;
+                        case "Spices":
+                            newGroceryItem.setSpiceList((List<Spice>) eachCategoryItems);
+                            break;
                     }
                     BottomSheetFragment.groceryItem = newGroceryItem;
                     notifyDataSetChanged();
@@ -160,14 +176,14 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
             public void onClick(View view) {
                 if(holder.itemQuantityTextView.getText() != null && !holder.itemQuantityTextView.getText().equals("")){
                     String text = holder.itemQuantityTextView.getText().toString();
-                    int value;
+                    double value;
                     if(text.contains("Kg")){
-                        value = Integer.parseInt(text.substring(0, text.indexOf("K")).trim());
+                        value = Double.parseDouble(text.substring(0, text.indexOf("K")).trim());
                         ++value;
                         holder.itemQuantityTextView.setText(value + " Kg");
                         eachCategoryItems.get(holder.getAdapterPosition()).setWeight(holder.itemQuantityTextView.getText().toString());
                     }else{
-                        value = Integer.parseInt(text.substring(0, text.indexOf("Q")).trim());
+                        value = Double.parseDouble(text.substring(0, text.indexOf("Q")).trim());
                         ++value;
                         holder.itemQuantityTextView.setText(String.valueOf(value));
                         eachCategoryItems.get(holder.getAdapterPosition()).setQuantity(holder.itemQuantityTextView.getText().toString());
@@ -182,6 +198,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                         break;
                     case "Vegetables":
                         newGroceryItem.setVegetableList((List<Vegetable>) eachCategoryItems);
+                        break;
+                    case "Spices":
+                        newGroceryItem.setSpiceList((List<Spice>) eachCategoryItems);
                         break;
                 }
                 BottomSheetFragment.groceryItem = newGroceryItem;

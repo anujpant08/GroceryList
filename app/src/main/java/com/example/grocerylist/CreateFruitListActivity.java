@@ -44,9 +44,9 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
     public static final List<String> allFruits = new LinkedList<>();
     public static final String NEW_LIST = "NewList";
     private static final String RECENT_FRUIT_LIST = "RecentFruitList";
-    private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private final DatabaseReference databaseReference = firebaseDatabase.getReference();
-    public DatabaseReference childDatabaseReference = null;
+    protected final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    protected final DatabaseReference databaseReference = firebaseDatabase.getReference();
+    protected DatabaseReference childDatabaseReference = null;
     private String imageString = "";
     private String intentValue = "";
     public BottomSheetFragment bottomSheetFragment = BottomSheetFragment.newInstance();
