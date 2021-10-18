@@ -1,5 +1,6 @@
 package com.example.grocerylist;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -43,10 +44,29 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         searchBox = findViewById(R.id.search_box);
+        ExtendedFloatingActionButton extendedFloatingActionButton = findViewById(R.id.new_list_fab);
+        extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CreateFruitListActivity.class);
+                intent.putExtra("ClearData", "true");
+                startActivity(intent);
+            }
+        });
         groceryItemAdapter = new GroceryItemAdapter(groceryItemList);
         groceryItemAdapter.setItemClickListener(this);
         recyclerView = findViewById(R.id.recycler_view_grocery_item);
         recyclerView.setAdapter(groceryItemAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy){
+                if (dy > 0)
+                    extendedFloatingActionButton.hide();
+                else if (dy < 0)
+                    extendedFloatingActionButton.show();
+            }
+        });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         //createDummyList(groceryItemList);
@@ -58,10 +78,9 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             Log.e(TAG, "already saved lists: " + listsJsonData);
             Gson gson = new Gson();
             groceryItemList = gson.fromJson(listsJsonData, typeList);
-            Log.e(TAG,"Gor this list from sharedPrefs : " + groceryItemList);
+            Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
             groceryItemAdapter.updateList(groceryItemList);
         }
-
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -95,15 +114,6 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 if(!searchBox.isCursorVisible()){
                     searchBox.setCursorVisible(true);
                 }
-            }
-        });
-        ExtendedFloatingActionButton newList = findViewById(R.id.new_list_fab);
-        newList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CreateFruitListActivity.class);
-                intent.putExtra("ClearData", "true");
-                startActivity(intent);
             }
         });
         Log.e(TAG, "Final list: " + groceryItemList);
