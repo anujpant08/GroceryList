@@ -71,6 +71,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                 case "Vegetable":
                     Glide.with(requireContext()).load(R.drawable.vegetables).into(imageView);
                     break;
+                case "Spice":
+                    Glide.with(requireContext()).load(R.drawable.spice).into(imageView);
+                    break;
 
             }
         }
@@ -88,6 +91,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                         BottomSheetFragment.this.setVegetableData();
                         break;
                     case "Spice":
+                        BottomSheetFragment.this.setSpiceData();
                         break;
                     case "Bread":
                         break;
@@ -142,6 +146,29 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         BottomSheetFragment.groceryItem.setVegetableList(new ArrayList<>(vegetables));
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.dark_green));
+        snackbar.setActionTextColor(getResources().getColor(R.color.white));
+        snackbar.setAnchorView(contentView);
+        snackbar.show();
+    }
+    private void setSpiceData(){
+        Spice spice = new Spice(itemName);
+        spice.setQuantity(quantityValue);
+        spice.setWeight(weightValue);
+        Log.e(TAG, "Spice added: " + spice);
+        if(BottomSheetFragment.groceryItem == null){
+            BottomSheetFragment.groceryItem = new GroceryItem();
+        }
+        Set<Spice> spices;
+        if (BottomSheetFragment.groceryItem.getSpiceList() != null) {
+            spices = new LinkedHashSet<>(BottomSheetFragment.groceryItem.getSpiceList());
+        } else {
+            spices = new LinkedHashSet<>();
+        }
+        spices.remove(spice);
+        spices.add(spice);
+        BottomSheetFragment.groceryItem.setSpiceList(new ArrayList<>(spices));
+        Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
+        snackbar.setBackgroundTint(getResources().getColor(R.color.dark_red));
         snackbar.setActionTextColor(getResources().getColor(R.color.white));
         snackbar.setAnchorView(contentView);
         snackbar.show();
