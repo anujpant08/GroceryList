@@ -65,6 +65,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                 case "Spices":
                     Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
                     break;
+                case "Others":
+                    Glide.with(context).load(R.drawable.dairybread).into(holder.itemImage);
+                    break;
             }
         }else{
             childDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -82,6 +85,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                                 break;
                             case "Spices":
                                 Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
+                                break;
+                            case "Others":
+                                Glide.with(context).load(R.drawable.dairybread).into(holder.itemImage);
                                 break;
                         }
                     }else{
@@ -101,6 +107,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                             break;
                         case "Spices":
                             Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
+                            break;
+                        case "Others":
+                            Glide.with(context).load(R.drawable.dairybread).into(holder.itemImage);
                             break;
                     }
                 }
@@ -127,6 +136,10 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                     case "Spices":
                         eachCategoryItems.remove(holder.getAdapterPosition());
                         newGroceryItem.setSpiceList((List<Spice>) eachCategoryItems);
+                        break;
+                    case "Others":
+                        eachCategoryItems.remove(holder.getAdapterPosition());
+                        newGroceryItem.setOthersList((List<Others>) eachCategoryItems);
                         break;
                 }
                 BottomSheetFragment.groceryItem = newGroceryItem;
@@ -165,6 +178,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                         case "Spices":
                             newGroceryItem.setSpiceList((List<Spice>) eachCategoryItems);
                             break;
+                        case "Others":
+                            newGroceryItem.setOthersList((List<Others>) eachCategoryItems);
+                            break;
                     }
                     BottomSheetFragment.groceryItem = newGroceryItem;
                     notifyDataSetChanged();
@@ -201,6 +217,9 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                         break;
                     case "Spices":
                         newGroceryItem.setSpiceList((List<Spice>) eachCategoryItems);
+                        break;
+                    case "Others":
+                        newGroceryItem.setOthersList((List<Others>) eachCategoryItems);
                         break;
                 }
                 BottomSheetFragment.groceryItem = newGroceryItem;

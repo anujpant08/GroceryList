@@ -112,9 +112,9 @@
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:id="@+id/bread_item"
-        android:contentDescription="Breads"
-        android:src="@drawable/bread"
+        android:id="@+id/others_item"
+        android:contentDescription="Others"
+        android:src="@drawable/dairybread"
         android:layout_below="@id/title"
         android:layout_toEndOf="@id/spice_quantity"
         android:layout_marginTop="8dp"
@@ -122,7 +122,7 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/bread_quantity"
+        android:id="@+id/others_quantity"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_below="@id/title"
@@ -130,38 +130,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_toEndOf="@id/bread_item"
-        android:background="@drawable/custom_quantity_background"
-        android:fontFamily="@font/cabin_bold"
-        android:gravity="center"
-        android:text="1"
-        android:textColor="@color/secondary"
-        android:textSize="16sp"
-        android:visibility="gone">
-
-    </TextView>
-    <ImageView
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:id="@+id/dairy_item"
-        android:contentDescription="Dairy"
-        android:src="@drawable/milk_bottle"
-        android:layout_below="@id/title"
-        android:layout_toEndOf="@id/bread_quantity"
-        android:layout_marginTop="8dp"
-        android:visibility="gone">
-    </ImageView>
-
-    <TextView
-        android:id="@+id/dairy_quantity"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_below="@id/title"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_toEndOf="@id/dairy_item"
+        android:layout_toEndOf="@id/others_item"
         android:background="@drawable/custom_quantity_background"
         android:fontFamily="@font/cabin_bold"
         android:gravity="center"

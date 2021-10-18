@@ -43,11 +43,8 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
         } else if (subItemsList.get(position).get(0).getFamily().equals("Spices")) {
             holder.title.setText("Spices");
             holder.title.setTextColor(this.context.getResources().getColor(R.color.dark_red));
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Breads")) {
-            holder.title.setText("Breads");
-            holder.title.setTextColor(this.context.getResources().getColor(R.color.bread_yellow));
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Dairy")) {
-            holder.title.setText("Dairy");
+        } else if (subItemsList.get(position).get(0).getFamily().equals("Others")) {
+            holder.title.setText("Others");
             holder.title.setTextColor(this.context.getResources().getColor(R.color.black));
         }
         Log.e(TAG, "items: " + subItemsList);

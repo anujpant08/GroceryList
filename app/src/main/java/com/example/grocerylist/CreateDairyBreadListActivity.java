@@ -1,11 +1,5 @@
 package com.example.grocerylist;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -38,11 +36,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class CreateSpicesListActivity extends CreateFruitListActivity implements ItemClickListener {
-    private static final List<String> allSpices = new ArrayList<>();
-    private static final String TAG = "CreateSpiceListActivity";
+public class CreateDairyBreadListActivity extends CreateFruitListActivity {
+    private static final List<String> allProducts = new ArrayList<>();
+    private static final String TAG = "CreateOtherListActivity";
     private String intentValue = "";
-    private static final String RECENT_SPICES_LIST = "RecentSpicesList";
+    private static final String RECENT_BREAD_DAIRY_LIST = "RecentBreadDairyList";
     private List<String> recentItems;
     private String imageString = "";
 
@@ -50,7 +48,7 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         try{
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_create_spices_list);
+            setContentView(R.layout.activity_create_dairy_bread_list);
             Intent intent = getIntent();
             intentValue = intent.getStringExtra("ClearData");
             SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
@@ -64,42 +62,42 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                 Gson gson = new Gson();
                 newGroceryItem = gson.fromJson(jsonData, type);
             }
-            Log.e(TAG, "In Spices: " + newGroceryItem);
-            ImageView imageView = (ImageView)findViewById(R.id.feature_spice);
-            Glide.with(this).load(R.drawable.spice).into(imageView);
-            String spicesJSON = "";
-            if(allSpices.isEmpty()){
-                InputStream inputStream = this.getAssets().open("spices.json");
+            Log.e(TAG, "In DairyBread: " + newGroceryItem);
+            ImageView imageView = (ImageView)findViewById(R.id.feature_bread_dairy);
+            Glide.with(this).load(R.drawable.dairybread).into(imageView);
+            String othersJSON = "";
+            if(allProducts.isEmpty()){
+                InputStream inputStream = this.getAssets().open("breadDairyProducts.json");
                 int size = inputStream.available();
                 byte[] buffer = new byte[size];
                 inputStream.read(buffer);
                 inputStream.close();
-                spicesJSON = new String(buffer, StandardCharsets.UTF_8);
-                parseJSON(spicesJSON);
+                othersJSON = new String(buffer, StandardCharsets.UTF_8);
+                parseJSON(othersJSON);
             }
-            SharedPreferences recentsSharedPrefs = this.getSharedPreferences(RECENT_SPICES_LIST, Context.MODE_PRIVATE);
+            SharedPreferences recentsSharedPrefs = this.getSharedPreferences(RECENT_BREAD_DAIRY_LIST, Context.MODE_PRIVATE);
             SharedPreferences.Editor recentEditor = recentsSharedPrefs.edit();
-            recentItems = new LinkedList<>(recentsSharedPrefs.getStringSet(RECENT_SPICES_LIST, new LinkedHashSet<>()));
-            RecyclerView recentsRecyclerView = findViewById(R.id.recents_recycler_view_spices);
-            RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this, "Spice");
+            recentItems = new LinkedList<>(recentsSharedPrefs.getStringSet(RECENT_BREAD_DAIRY_LIST, new LinkedHashSet<>()));
+            RecyclerView recentsRecyclerView = findViewById(R.id.recents_recycler_view_dairy);
+            RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this, "Others");
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
             recentsRecyclerView.setLayoutManager(gridLayoutManager);
             recentsRecyclerView.setAdapter(recentItemsAdapter);
             recentItemsAdapter.notifyDataSetChanged();
             recentItemsAdapter.setItemClickListener(this);
-            AutoCompleteTextView searchBox = (AutoCompleteTextView) findViewById(R.id.search_text_spice);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_search_view, allSpices);
+            AutoCompleteTextView searchBox = (AutoCompleteTextView) findViewById(R.id.search_text_dairy_bread);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_search_view, allProducts);
             searchBox.setThreshold(1);
             searchBox.setAdapter(adapter);
             searchBox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                    childDatabaseReference = databaseReference.child("Spices/" + adapterView.getItemAtPosition(position));
+                    childDatabaseReference = databaseReference.child("Others/" + adapterView.getItemAtPosition(position));
                     if(!isNetworkAvailable()){
-                        bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Spice");
-                        Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_SPICES_LIST, new LinkedHashSet<>()));
+                        bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Others");
+                        Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_BREAD_DAIRY_LIST, new LinkedHashSet<>()));
                         recents.add(adapterView.getItemAtPosition(position) + "##");
-                        recentEditor.putStringSet(RECENT_SPICES_LIST, recents);
+                        recentEditor.putStringSet(RECENT_BREAD_DAIRY_LIST, recents);
                         recentEditor.apply();
                         recentItems.clear();
                         recentItems.addAll(recents);
@@ -110,12 +108,12 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
-                                Log.e(TAG, "Firebase spice URL: " + imageString);
-                                bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Spice");
+                                Log.e(TAG, "Firebase others URL: " + imageString);
+                                bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Others");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
-                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_SPICES_LIST, new LinkedHashSet<>()));
+                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_BREAD_DAIRY_LIST, new LinkedHashSet<>()));
                                 recents.add(adapterView.getItemAtPosition(position) + "##" + imageString);
-                                recentEditor.putStringSet(RECENT_SPICES_LIST, recents);
+                                recentEditor.putStringSet(RECENT_BREAD_DAIRY_LIST, recents);
                                 recentEditor.apply();
                                 recentItems.clear();
                                 recentItems.addAll(recents);
@@ -126,11 +124,11 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                                 Log.e(TAG, "An exception has occurred: ", error.toException());
-                                bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Spice");
+                                bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Others");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
-                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_SPICES_LIST, new LinkedHashSet<>()));
+                                Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_BREAD_DAIRY_LIST, new LinkedHashSet<>()));
                                 recents.add(adapterView.getItemAtPosition(position) + "##");
-                                recentEditor.putStringSet(RECENT_SPICES_LIST, recents);
+                                recentEditor.putStringSet(RECENT_BREAD_DAIRY_LIST, recents);
                                 recentEditor.apply();
                                 recentItems.clear();
                                 recentItems.addAll(recents);
@@ -142,27 +140,27 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                     newGroceryItem = BottomSheetFragment.getGroceryItem();
                 }
             });
-            ExtendedFloatingActionButton extendedFloatingActionButton = findViewById(R.id.get_bread_dairy);
+            ExtendedFloatingActionButton extendedFloatingActionButton = findViewById(R.id.final_list_fab);
             extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(CreateSpicesListActivity.this, CreateDairyBreadListActivity.class);
+                    Intent intent = new Intent(CreateDairyBreadListActivity.this, FinalListActivity.class);
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
-                    Log.e(TAG,"new list in spices: " + jsonContent);
+                    Log.e(TAG,"new list in dairyBread: " + jsonContent);
                     editor.putString(NEW_LIST, jsonContent);
                     editor.apply();
                     startActivity(intent);
                     intentValue = "";
                 }
             });
-            TextView clearTextView = findViewById(R.id.recents_clear_spice);
+            TextView clearTextView = findViewById(R.id.recents_clear_dairy);
             clearTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     recentItemsAdapter.notifyItemRangeRemoved(0, recentItems.size());
                     recentItems.clear();
-                    recentEditor.putStringSet(RECENT_SPICES_LIST, null);
+                    recentEditor.putStringSet(RECENT_BREAD_DAIRY_LIST, null);
                     recentEditor.apply();
                 }
             });
@@ -173,18 +171,18 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
     private void parseJSON(String json){
         try{
             JSONObject response = new JSONObject(json);
-            JSONArray herbsArray = response.getJSONArray("herbs");
-            JSONArray spicesArray = response.getJSONArray("spices");
-            String herbsName = "";
-            for(int index = 0; index < herbsArray.length(); index++){
-                herbsName = herbsArray.getString(index);
-                herbsName = Character.toUpperCase(herbsName.charAt(0)) + herbsName.substring(1);
-                allSpices.add(herbsName);
+            JSONArray flourArray = response.getJSONArray("daily");
+            JSONArray dairyArray = response.getJSONArray("dairy");
+            String productName = "";
+            for(int index = 0; index < flourArray.length(); index++){
+                productName = flourArray.getString(index);
+                productName = Character.toUpperCase(productName.charAt(0)) + productName.substring(1);
+                allProducts.add(productName);
             }
-            for(int index = 0; index < spicesArray.length(); index++){
-                herbsName = spicesArray.getString(index);
-                herbsName = Character.toUpperCase(herbsName.charAt(0)) + herbsName.substring(1);
-                allSpices.add(herbsName);
+            for(int index = 0; index < dairyArray.length(); index++){
+                productName = dairyArray.getString(index);
+                productName = Character.toUpperCase(productName.charAt(0)) + productName.substring(1);
+                allProducts.add(productName);
             }
         }catch(Exception exception){
             Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
@@ -208,9 +206,9 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
     public void onClick(View view, int position) {
         String[] data = recentItems.get(position).split("##");
         if(data.length > 1){
-            bottomSheetFragment.setItemData(recentItems.get(position).split("##")[1], recentItems.get(position).split("##")[0], newGroceryItem, "Spice");
+            bottomSheetFragment.setItemData(recentItems.get(position).split("##")[1], recentItems.get(position).split("##")[0], newGroceryItem, "Others");
         }else{
-            bottomSheetFragment.setItemData("", recentItems.get(position).split("##")[0], newGroceryItem, "Spice");
+            bottomSheetFragment.setItemData("", recentItems.get(position).split("##")[0], newGroceryItem, "Others");
         }
         bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
     }

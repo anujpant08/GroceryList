@@ -58,11 +58,8 @@ public class FinalListActivity extends CreateFruitListActivity {
             if (newGroceryItem.getSpiceList() != null && !newGroceryItem.getSpiceList().isEmpty()) {
                 subItemsList.add(newGroceryItem.getSpiceList());
             }
-            if (newGroceryItem.getBreadList() != null && !newGroceryItem.getBreadList().isEmpty()) {
-                subItemsList.add(newGroceryItem.getBreadList());
-            }
-            if (newGroceryItem.getDairyList() != null && !newGroceryItem.getDairyList().isEmpty()) {
-                subItemsList.add(newGroceryItem.getDairyList());
+            if (newGroceryItem.getOthersList() != null && !newGroceryItem.getOthersList().isEmpty()) {
+                subItemsList.add(newGroceryItem.getOthersList());
             }
             ExtendedFloatingActionButton extendedFloatingActionButton = findViewById(R.id.done_fab);
             FinalListParentAdapter finalListParentAdapter = new FinalListParentAdapter(this, subItemsList, newGroceryItem);
@@ -108,6 +105,10 @@ public class FinalListActivity extends CreateFruitListActivity {
                                 newGroceryItem.setFruitList((List<Fruit>) subList);
                             }else if(subList.get(0).getFamily().equals("Vegetables")){
                                 newGroceryItem.setVegetableList((List<Vegetable>) subList);
+                            }else if(subList.get(0).getFamily().equals("Spices")){
+                                newGroceryItem.setSpiceList((List<Spice>) subList);
+                            }else if(subList.get(0).getFamily().equals("Others")){
+                                newGroceryItem.setOthersList((List<Others>) subList);
                             }
                         }
                         Log.e(TAG, "final list saved: " + newGroceryItem);
