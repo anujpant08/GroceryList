@@ -9,8 +9,7 @@ public class GroceryItem {
     private List<Fruit> fruitList;
     private List<Vegetable> vegetableList;
     private List<Spice> spiceList;
-    private List<Bread> breadList;
-    private List<Dairy> dairyList;
+    private List<Others> othersList;
     private String title;
 
     public List<Fruit> getFruitList() {
@@ -37,20 +36,12 @@ public class GroceryItem {
         this.spiceList = spiceList;
     }
 
-    public List<Bread> getBreadList() {
-        return breadList;
+    public List<Others> getOthersList() {
+        return othersList;
     }
 
-    public void setBreadList(List<Bread> breadList) {
-        this.breadList = breadList;
-    }
-
-    public List<Dairy> getDairyList() {
-        return dairyList;
-    }
-
-    public void setDairyList(List<Dairy> dairyList) {
-        this.dairyList = dairyList;
+    public void setOthersList(List<Others> othersList) {
+        this.othersList = othersList;
     }
 
     public String getTitle() {
@@ -81,8 +72,7 @@ public class GroceryItem {
                 "fruitList=" + fruitList +
                 ", vegetableList=" + vegetableList +
                 ", spiceList=" + spiceList +
-                ", breadList=" + breadList +
-                ", dairyList=" + dairyList +
+                ", othersList=" + othersList +
                 ", title='" + title + '\'' +
                 '}';
     }

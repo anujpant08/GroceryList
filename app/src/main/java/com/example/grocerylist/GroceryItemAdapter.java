@@ -1,11 +1,9 @@
 package com.example.grocerylist;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,14 +42,10 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
             holder.spiceImageView.setVisibility(View.VISIBLE);
             holder.spiceQuantityTextView.setVisibility(View.VISIBLE);
             holder.spiceQuantityTextView.setText(String.valueOf(groceryItem.getSpiceList().size()));
-        }if(groceryItem.getBreadList() != null && groceryItem.getBreadList().size() > 0){
-            holder.breadImageView.setVisibility(View.VISIBLE);
-            holder.breadQuantityTextView.setVisibility(View.VISIBLE);
-            holder.breadQuantityTextView.setText(String.valueOf(groceryItem.getBreadList().size()));
-        }if(groceryItem.getDairyList() != null && groceryItem.getDairyList().size() > 0){
-            holder.dairyImageView.setVisibility(View.VISIBLE);
-            holder.dairyQuantityTextView.setVisibility(View.VISIBLE);
-            holder.dairyQuantityTextView.setText(String.valueOf(groceryItem.getDairyList().size()));
+        }if(groceryItem.getOthersList() != null && groceryItem.getOthersList().size() > 0){
+            holder.othersImageView.setVisibility(View.VISIBLE);
+            holder.othersTextView.setVisibility(View.VISIBLE);
+            holder.othersTextView.setText(String.valueOf(groceryItem.getOthersList().size()));
         }
     }
 
@@ -78,10 +72,8 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
         TextView vegetableQuantityTextView;
         ImageView spiceImageView;
         TextView spiceQuantityTextView;
-        ImageView breadImageView;
-        TextView breadQuantityTextView;
-        ImageView dairyImageView;
-        TextView dairyQuantityTextView;
+        ImageView othersImageView;
+        TextView othersTextView;
 
         public GroceryItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,10 +84,8 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
             vegetableQuantityTextView = (TextView) itemView.findViewById(R.id.vegetable_quantity);
             spiceImageView = (ImageView) itemView.findViewById(R.id.spice_item);
             spiceQuantityTextView = (TextView) itemView.findViewById(R.id.spice_quantity);
-            breadImageView = (ImageView) itemView.findViewById(R.id.bread_item);
-            breadQuantityTextView = (TextView) itemView.findViewById(R.id.bread_quantity);
-            dairyImageView = (ImageView) itemView.findViewById(R.id.dairy_item);
-            dairyQuantityTextView = (TextView) itemView.findViewById(R.id.dairy_quantity);
+            othersImageView = (ImageView) itemView.findViewById(R.id.others_item);
+            othersTextView = (TextView) itemView.findViewById(R.id.others_quantity);
             itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
         }

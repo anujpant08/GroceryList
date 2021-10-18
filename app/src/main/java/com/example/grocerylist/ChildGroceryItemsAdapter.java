@@ -17,20 +17,9 @@ import java.util.List;
 public class ChildGroceryItemsAdapter extends RecyclerView.Adapter<ChildGroceryItemsAdapter.ChildGroceryItemPopupViewHolder> {
     private static final String TAG = "ChildGroceryItems";
     List<? extends ItemCategoryInterface> eachCategoryItems = null;
-    List<Fruit> fruits;
-    List<Vegetable> vegetables;
-    List<Spice> spices;
-    List<Bread> breads;
-    List<Dairy> dairyList;
-    private Context context;
 
     public ChildGroceryItemsAdapter(Context context, List<? extends ItemCategoryInterface> eachCategoryItems) {
         this.eachCategoryItems = eachCategoryItems;
-//        this.vegetables = vegetables;
-//        this.spices = spices;
-//        this.breads = breads;
-//        this.dairyList = dairyList;
-        this.context = context;
     }
 
     @NonNull

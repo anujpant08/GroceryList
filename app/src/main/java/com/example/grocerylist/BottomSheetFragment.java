@@ -61,7 +61,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         EditText quantity = (EditText) contentView.findViewById(R.id.quantity_edit_text);
         EditText weight = (EditText) contentView.findViewById(R.id.weight_edit_text);
         textView.setText(itemName);
-        if(base64Image != null && !base64Image.equals("")){
+        if(base64Image != null && !base64Image.equals("") && !base64Image.equals("null")){
             Glide.with(requireContext()).load(base64Image).into(imageView);
         }else{
             switch(family){
@@ -73,6 +73,9 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     break;
                 case "Spice":
                     Glide.with(requireContext()).load(R.drawable.spice).into(imageView);
+                    break;
+                case "Others":
+                    Glide.with(requireContext()).load(R.drawable.dairybread).into(imageView);
                     break;
 
             }
@@ -93,9 +96,8 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
                     case "Spice":
                         BottomSheetFragment.this.setSpiceData();
                         break;
-                    case "Bread":
-                        break;
-                    case "Dairy":
+                    case "Others":
+                        BottomSheetFragment.this.setBreadDairyData();
                         break;
                 }
             }
@@ -169,6 +171,29 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         BottomSheetFragment.groceryItem.setSpiceList(new ArrayList<>(spices));
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.dark_red));
+        snackbar.setActionTextColor(getResources().getColor(R.color.white));
+        snackbar.setAnchorView(contentView);
+        snackbar.show();
+    }
+    private void setBreadDairyData(){
+        Others others = new Others(itemName);
+        others.setQuantity(quantityValue);
+        others.setWeight(weightValue);
+        Log.e(TAG, "Other product added: " + others);
+        if(BottomSheetFragment.groceryItem == null){
+            BottomSheetFragment.groceryItem = new GroceryItem();
+        }
+        Set<Others> othersList;
+        if (BottomSheetFragment.groceryItem.getOthersList() != null) {
+            othersList = new LinkedHashSet<>(BottomSheetFragment.groceryItem.getOthersList());
+        } else {
+            othersList = new LinkedHashSet<>();
+        }
+        othersList.remove(others);
+        othersList.add(others);
+        BottomSheetFragment.groceryItem.setOthersList(new ArrayList<>(othersList));
+        Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
+        snackbar.setBackgroundTint(getResources().getColor(R.color.black));
         snackbar.setActionTextColor(getResources().getColor(R.color.white));
         snackbar.setAnchorView(contentView);
         snackbar.show();

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_off_white"
+    tools:context=".CreateDairyBreadListActivity"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/create_list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/cabin_bold"
+        android:text="Add Dairy and Bread"
+        android:textColor="@color/secondary"
+        android:textSize="24sp" />
+    <TextView
+        android:id="@+id/create_list_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Get some dairy power and bread energy"
+        android:layout_below="@id/create_list_title"
+        android:fontFamily="@font/cabin"
+        android:textSize="16sp"
+        android:textColor="@color/secondary">
+    </TextView>
+
+    <ImageView
+        android:id="@+id/feature_bread_dairy"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/create_list_description"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="Apple">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/search_bread_dairy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/feature_bread_dairy"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cabin"
+        android:gravity="center"
+        android:text="Fun Fact:"
+        android:textColor="@color/secondary"
+        android:textSize="18sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/search_text_dairy_bread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_bread_dairy"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/cabin"
+        android:hint="Bread/Dairy Prouct Name"
+        android:imeOptions="actionSearch"
+        android:singleLine="true"
+        android:textColor="@color/secondary"
+        android:textColorHint="@color/primary"
+        android:textSize="16sp">
+
+    </AutoCompleteTextView>
+
+    <TextView
+        android:id="@+id/recents_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_text_dairy_bread"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/cabin_bold"
+        android:text="Recently used products"
+        android:textColor="@color/secondary"
+        android:textSize="18sp">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/recents_clear_dairy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_text_dairy_bread"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/cabin"
+        android:text="Clear"
+        android:textColor="@color/secondary"
+        android:textSize="16sp">
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recents_recycler_view_dairy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recents_text_view"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/final_list_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/secondary"
+        android:text="Save list"
+        android:fontFamily="@font/cabin_bold"
+        app:icon="@drawable/ic_round_navigate_next_24"
+        app:iconGravity="end"
+        app:iconPadding="0dp">
+
+    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+
+</RelativeLayout>

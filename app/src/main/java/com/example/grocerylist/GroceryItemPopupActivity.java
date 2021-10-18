@@ -47,11 +47,8 @@ public class GroceryItemPopupActivity extends AppCompatActivity {
             if (groceryItem.getSpiceList() != null && !groceryItem.getSpiceList().isEmpty()) {
                 subItemsList.add(groceryItem.getSpiceList());
             }
-            if (groceryItem.getBreadList() != null && !groceryItem.getBreadList().isEmpty()) {
-                subItemsList.add(groceryItem.getBreadList());
-            }
-            if (groceryItem.getDairyList() != null && !groceryItem.getDairyList().isEmpty()) {
-                subItemsList.add(groceryItem.getDairyList());
+            if (groceryItem.getOthersList() != null && !groceryItem.getOthersList().isEmpty()) {
+                subItemsList.add(groceryItem.getOthersList());
             }
             RecyclerView popupRecyclerView = (RecyclerView) findViewById(R.id.popup_recycler_view);
             GroceryItemPopupAdapter groceryItemPopupAdapter = new GroceryItemPopupAdapter(this, subItemsList);

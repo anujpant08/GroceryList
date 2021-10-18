@@ -1,0 +1,40 @@
+{
+  "daily": [
+    "All-Purpose Flour",
+    "Whole Wheat Flour",
+    "White Whole Wheat Flour",
+    "Pastry Flour",
+    "Cake Flour",
+    "Bread",
+    "Brown Bread",
+    "Bleached Flour",
+    "Multigrain Flour",
+    "Rice Flour",
+    "Bajra Flour",
+    "Makka Flour",
+    "Jowar Flour",
+    "Yellow Grain Flour(Besan)",
+    "Semolina(Suji)",
+    "Basmati Rice",
+    "Brown Rice",
+    "Toor Dal",
+    "Masoor Dal",
+    "Green Gram",
+    "Black Gram Beans",
+    "Split Green Gram"
+  ],
+  "dairy": [
+    "Toned Milk",
+    "Full Cream Milk",
+    "Butter",
+    "Ghee",
+    "Cheese",
+    "Yoghurt",
+    "Cream",
+    "Cheddar Cheese",
+    "Cottage Cheese",
+    "Custard",
+    "Ice Cream",
+    "Frozen Yoghurt"
+  ]
+}

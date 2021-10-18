@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         }
     }
 
-    private void createDummyList(List<GroceryItem> groceryItemList) {
+    /*private void createDummyList(List<GroceryItem> groceryItemList) {
         GroceryItem groceryItem1 = new GroceryItem();
         groceryItem1.setTitle("Sunday's Grocery");
         List<Fruit> fruits = new ArrayList<>();
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         breads.add(new Bread("Flour"));
         groceryItem2.setBreadList(breads);
         groceryItemList.add(groceryItem2);
-    }
+    }*/
 
     @Override
     public void onClick(View view, int position) {

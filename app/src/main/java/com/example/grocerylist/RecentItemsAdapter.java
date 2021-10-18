@@ -55,6 +55,9 @@ public class RecentItemsAdapter extends RecyclerView.Adapter<RecentItemsAdapter.
                 case "Spice":
                     Glide.with(context).load(R.drawable.spice).into(holder.recentsImageView);
                     break;
+                case "Others":
+                    Glide.with(context).load(R.drawable.dairybread).into(holder.recentsImageView);
+                    break;
             }
         }
     }
