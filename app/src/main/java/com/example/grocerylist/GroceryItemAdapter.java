@@ -101,7 +101,10 @@ public class GroceryItemAdapter extends RecyclerView.Adapter<GroceryItemAdapter.
 
         @Override
         public void onClick(View view) {
-
+            if (itemClickListener != null) {
+                Log.e(TAG, "clicked.");
+                itemClickListener.onClick(view, getAdapterPosition());
+            }
         }
     }
 }

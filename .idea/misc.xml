@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/activity_create_new_list.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/activity_create_spices_list.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_final_list.xml" value="0.21422101449275363" />
+        <entry key="app/src/main/res/layout/activity_list_detail_view.xml" value="0.45" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.21422101449275363" />
         <entry key="app/src/main/res/layout/activity_view_item_bottom.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/child_grocery_item.xml" value="0.5" />

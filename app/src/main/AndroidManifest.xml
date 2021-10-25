@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GroceryList">
         <activity
+            android:name=".ListDetailViewActivity"
+            android:exported="false" />
+        <activity
             android:name=".CreateDairyBreadListActivity"
             android:exported="false" />
         <activity

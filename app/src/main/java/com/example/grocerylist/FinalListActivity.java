@@ -28,7 +28,6 @@ public class FinalListActivity extends CreateFruitListActivity {
     private static final String TAG = "FinalListActivity";
     private SharedPreferences.Editor editor = null;
     private List<GroceryItem> savedLists = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
