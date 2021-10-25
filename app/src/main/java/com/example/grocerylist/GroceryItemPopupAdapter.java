@@ -44,18 +44,10 @@ public class GroceryItemPopupAdapter extends RecyclerView.Adapter<GroceryItemPop
         } else if (subItemsList.get(position).get(0).getFamily().equals("Spices")) {
             holder.title.setText("Spices");
             holder.title.setTextColor(this.context.getResources().getColor(R.color.dark_red));
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Breads")) {
-            holder.title.setText("Breads");
-            holder.title.setTextColor(this.context.getResources().getColor(R.color.bread_yellow));
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Dairy")) {
-            holder.title.setText("Dairy");
+        } else if (subItemsList.get(position).get(0).getFamily().equals("Others")) {
+            holder.title.setText("Others");
             holder.title.setTextColor(this.context.getResources().getColor(R.color.black));
         }
-        //        fruits = this.groceryItem.getFruitList();
-        //        vegetables = this.groceryItem.getVegetableList();
-        //        spices = this.groceryItem.getSpiceList();
-        //        breads = this.groceryItem.getBreadList();
-        //        dairyList = this.groceryItem.getDairyList();
         Log.e(TAG, "items: " + subItemsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context);
         ChildGroceryItemsAdapter childGroceryItemsAdapter = new ChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position));

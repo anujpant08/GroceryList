@@ -43,6 +43,10 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
         newGroceryItem = groceryItem;
     }
 
+    public GroceryItem getNewGroceryItem() {
+        return newGroceryItem;
+    }
+
     @NonNull
     @Override
     public FinalChildGroceryItemsAdapter.FinalChildViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

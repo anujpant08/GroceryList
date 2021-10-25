@@ -142,8 +142,9 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int position = viewHolder.getAdapterPosition();
                         groceryItemList.remove(position);
-                        groceryItemAdapter.notifyItemRemoved(position);
-                        groceryItemAdapter.notifyDataSetChanged();
+                        Log.e(TAG, "grocery item list after deleting: " + groceryItemList);
+                        //groceryItemAdapter.notifyItemRemoved(position);
+                        groceryItemAdapter.updateList(groceryItemList);
                         Gson gson = new Gson();
                         String jsonContent = gson.toJson(groceryItemList);
                         editor.putString(SAVEDLIST, jsonContent);
@@ -219,7 +220,11 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
 
     @Override
     public void onClick(View view, int position) {
-
+        Intent intent = new Intent(this, ListDetailViewActivity.class);
+        Gson gson = new Gson();
+        String jsonGroceryListObject = gson.toJson(groceryItemList.get(position));
+        intent.putExtra("ViewList", jsonGroceryListObject);
+        this.startActivity(intent);
     }
 
     @Override
@@ -245,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
             Gson gson = new Gson();
             groceryItemList = gson.fromJson(listsJsonData, typeList);
             Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
-            groceryItemAdapter.notifyDataSetChanged();
+            groceryItemAdapter.updateList(groceryItemList);
             recyclerView.setAdapter(groceryItemAdapter);// To reflect display items after filtering.
         }
     }

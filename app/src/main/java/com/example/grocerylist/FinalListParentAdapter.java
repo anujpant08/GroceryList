@@ -18,12 +18,20 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
     private static final String TAG = "FinalListParentAdapter";
     List<List<? extends ItemCategoryInterface>> subItemsList = null;
     private final Context context;
-    private GroceryItem groceryItem;
+    private final GroceryItem groceryItem;
+    private FinalChildGroceryItemsAdapter finalChildGroceryItemsAdapter;
 
     public FinalListParentAdapter(Context context, List<List<? extends ItemCategoryInterface>> subItemsList, GroceryItem groceryItem) {
         this.context = context;
         this.subItemsList = subItemsList;
         this.groceryItem = groceryItem;
+    }
+
+    public GroceryItem getGroceryItem() {
+        if(finalChildGroceryItemsAdapter != null){
+            return finalChildGroceryItemsAdapter.getNewGroceryItem();
+        }
+        return groceryItem;
     }
 
     @NonNull
@@ -35,21 +43,26 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
 
     @Override
     public void onBindViewHolder(@NonNull FinalListParentAdapter.FinalListParentViewHolder holder, int position) {
-        if (subItemsList.get(position).get(0).getFamily().equals("Fruits")) {
-            holder.title.setText("Fruits");
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Vegetables")) {
-            holder.title.setText("Vegetables");
-            holder.title.setTextColor(this.context.getResources().getColor(R.color.dark_green));
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Spices")) {
-            holder.title.setText("Spices");
-            holder.title.setTextColor(this.context.getResources().getColor(R.color.dark_red));
-        } else if (subItemsList.get(position).get(0).getFamily().equals("Others")) {
-            holder.title.setText("Others");
-            holder.title.setTextColor(this.context.getResources().getColor(R.color.black));
+        switch (subItemsList.get(position).get(0).getFamily()) {
+            case "Fruits":
+                holder.title.setText("Fruits");
+                break;
+            case "Vegetables":
+                holder.title.setText("Vegetables");
+                holder.title.setTextColor(this.context.getResources().getColor(R.color.dark_green));
+                break;
+            case "Spices":
+                holder.title.setText("Spices");
+                holder.title.setTextColor(this.context.getResources().getColor(R.color.dark_red));
+                break;
+            case "Others":
+                holder.title.setText("Others");
+                holder.title.setTextColor(this.context.getResources().getColor(R.color.black));
+                break;
         }
         Log.e(TAG, "items: " + subItemsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context);
-        FinalChildGroceryItemsAdapter finalChildGroceryItemsAdapter = new FinalChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position), groceryItem);
+        finalChildGroceryItemsAdapter = new FinalChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position), groceryItem);
         RecyclerView.OnItemTouchListener scrollTouchListener = new RecyclerView.OnItemTouchListener() {
             @Override
             public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, MotionEvent e) {
