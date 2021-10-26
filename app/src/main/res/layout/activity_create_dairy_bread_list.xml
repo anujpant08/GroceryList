@@ -38,27 +38,28 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:layout_marginBottom="8dp"
-        android:contentDescription="Apple">
+        android:contentDescription="Bread and Dairy">
 
     </ImageView>
 
     <TextView
-        android:id="@+id/search_bread_dairy"
+        android:id="@+id/fact_others"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/feature_bread_dairy"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/cabin"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:fontFamily="@font/cabin_medium_italic"
         android:gravity="center"
         android:text="Fun Fact:"
         android:textColor="@color/secondary"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <AutoCompleteTextView
         android:id="@+id/search_text_dairy_bread"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_bread_dairy"
+        android:layout_below="@id/fact_others"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"

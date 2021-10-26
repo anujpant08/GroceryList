@@ -38,6 +38,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CreateFruitListActivity extends AppCompatActivity implements ItemClickListener {
     private static final String TAG = "CreateNewListActivity";
@@ -58,6 +59,9 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.create_fruits_list);
+            TextView factTextView = findViewById(R.id.fact_fruit);
+            String fact = getFunFact();
+            factTextView.setText(fact);
             if(savedInstanceState == null){
                 Intent intent = getIntent();
                 intentValue = intent.getStringExtra("ClearData");
@@ -235,5 +239,19 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
     @Override
     public void onLongClick(View view, int position) {
 
+    }
+    private String getFunFact() throws Exception{
+        String fact = "";
+        InputStream inputStream = this.getAssets().open("fun facts fruits.json");
+        int size = inputStream.available();
+        byte[] buffer = new byte[size];
+        inputStream.read(buffer);
+        inputStream.close();
+        String factJSON = new String(buffer, StandardCharsets.UTF_8);
+        int randomNumber = ThreadLocalRandom.current().nextInt(0, 14);
+        JSONObject jsonObject = new JSONObject(factJSON);
+        JSONArray factsArray = jsonObject.getJSONArray("facts");
+        fact = factsArray.getString(randomNumber);
+        return "Fun fact: " + fact;
     }
 }
