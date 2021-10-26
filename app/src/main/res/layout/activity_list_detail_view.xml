@@ -12,9 +12,23 @@
         android:id="@+id/back_button_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="Back"
         android:src="@drawable/ic_round_arrow_back_ios_new_24">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/share_button_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:contentDescription="Share"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_round_share_24">
 
     </ImageView>
 
@@ -35,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/back_button_detail"
+        android:padding="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="8dp"
