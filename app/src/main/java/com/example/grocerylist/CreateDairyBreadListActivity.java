@@ -35,6 +35,7 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CreateDairyBreadListActivity extends CreateFruitListActivity {
     private static final List<String> allProducts = new ArrayList<>();
@@ -49,6 +50,9 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
         try{
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_create_dairy_bread_list);
+            TextView factTextView = findViewById(R.id.fact_others);
+            String fact = getFunFact();
+            factTextView.setText(fact);
             Intent intent = getIntent();
             intentValue = intent.getStringExtra("ClearData");
             SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
@@ -211,5 +215,19 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
             bottomSheetFragment.setItemData("", recentItems.get(position).split("##")[0], newGroceryItem, "Others");
         }
         bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
+    }
+    private String getFunFact() throws Exception{
+        String fact = "";
+        InputStream inputStream = this.getAssets().open("fun facts others.json");
+        int size = inputStream.available();
+        byte[] buffer = new byte[size];
+        inputStream.read(buffer);
+        inputStream.close();
+        String factJSON = new String(buffer, StandardCharsets.UTF_8);
+        int randomNumber = ThreadLocalRandom.current().nextInt(0, 20);
+        JSONObject jsonObject = new JSONObject(factJSON);
+        JSONArray factsArray = jsonObject.getJSONArray("facts");
+        fact = factsArray.getString(randomNumber);
+        return "Fun fact: " + fact;
     }
 }

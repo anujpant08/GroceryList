@@ -44,22 +44,23 @@
     </ImageView>
 
     <TextView
-        android:id="@+id/search_vegetable"
+        android:id="@+id/fact_vegetable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/feature_vegetable"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/cabin"
+        android:layout_margin="8dp"
+        android:padding="8dp"
+        android:fontFamily="@font/cabin_medium_italic"
         android:gravity="center"
         android:text="Fun Fact:"
         android:textColor="@color/secondary"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <AutoCompleteTextView
         android:id="@+id/search_text_vegetable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/search_vegetable"
+        android:layout_below="@id/fact_vegetable"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"

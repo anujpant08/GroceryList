@@ -2,6 +2,7 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/cabin</item>
+        <item>@font/cabin_medium_italic</item>
         <item>@font/open_sans</item>
         <item>@font/open_sans_bold_italic</item>
     </array>
