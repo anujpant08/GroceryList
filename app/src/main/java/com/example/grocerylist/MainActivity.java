@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        //createDummyList(groceryItemList);
+        //createDummyList(groceryItemList)
         SharedPreferences sharedPreferencesGroceryList = this.getSharedPreferences(SAVEDLIST, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferencesGroceryList.edit();
         String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");

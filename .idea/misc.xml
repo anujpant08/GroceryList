@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../Library/Android/sdk/platforms/android-31/data/res/layout/select_dialog_item.xml" value="0.1743659420289855" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/bottom_sheet_custom_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/checkbox_selector.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/custom_check_box.xml" value="0.24635416666666668" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/drawable/final_custom_check_box.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/grocery_item_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/home_gradient.xml" value="0.24635416666666668" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/drawable/search_box_drawable.xml" value="0.24635416666666668" />
         <entry key="app/src/main/res/layout/activity_create_dairy_bread_list.xml" value="0.23020833333333332" />
         <entry key="app/src/main/res/layout/activity_create_new_list.xml" value="0.21422101449275363" />
@@ -33,6 +35,7 @@
         <entry key="app/src/main/res/layout/popup_custom_item_view.xml" value="0.45" />
         <entry key="app/src/main/res/layout/popup_grocery_item_view.xml" value="0.25" />
         <entry key="app/src/main/res/layout/recents_custom_view.xml" value="0.23020833333333332" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.24635416666666668" />
       </map>
     </option>
   </component>

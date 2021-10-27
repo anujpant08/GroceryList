@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_off_white"
+    android:padding="8dp"
     tools:context=".ListDetailViewActivity">
 
 
     <ImageView
         android:id="@+id/back_button_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -23,11 +24,14 @@
 
     <ImageView
         android:id="@+id/share_button_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:contentDescription="Share"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
         android:layout_alignParentEnd="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="Share"
         android:src="@drawable/ic_round_share_24">
 
     </ImageView>
@@ -36,13 +40,14 @@
         android:id="@+id/list_detail_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="10dp"
-        android:layout_toEndOf="@id/back_button_detail"
+        android:layout_marginTop="2dp"
         android:fontFamily="@font/cabin_bold"
         android:text="List"
         android:textColor="@color/secondary"
-        android:textSize="24sp" />
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/detail_recycler_view"
