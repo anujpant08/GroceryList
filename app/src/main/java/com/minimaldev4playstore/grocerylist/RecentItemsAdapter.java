@@ -1,4 +1,4 @@
-package com.example.grocerylist;
+package com.minimaldev4playstore.grocerylist;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 

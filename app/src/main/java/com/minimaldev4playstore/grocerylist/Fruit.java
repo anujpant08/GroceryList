@@ -1,15 +1,15 @@
-package com.example.grocerylist;
+package com.minimaldev4playstore.grocerylist;
 
 import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-public class Spice implements  ItemCategoryInterface{
-    private String name = "";
+public class Fruit implements  ItemCategoryInterface{
+    private String name;
     private String weight = "";
     private String quantity = "";
 
-    public Spice(String name) {
+    public Fruit(String name) {
         this.name = name;
     }
 
@@ -43,18 +43,17 @@ public class Spice implements  ItemCategoryInterface{
         return this.quantity;
     }
 
-
     @Override
     public String getFamily() {
-        return "Spices";
+        return "Fruits";
     }
 
     @Override
-    public boolean equals(Object spiceObject) {
-        if (this == spiceObject) return true;
-        if (spiceObject == null || getClass() != spiceObject.getClass()) return false;
-        Spice spice = (Spice) spiceObject;
-        return this.name.equals(spice.name);
+    public boolean equals(Object fruitObject) {
+        if (this == fruitObject) return true;
+        if (fruitObject == null || getClass() != fruitObject.getClass()) return false;
+        Fruit fruit = (Fruit) fruitObject;
+        return this.name.equals(fruit.name);
     }
 
     @Override
@@ -65,7 +64,7 @@ public class Spice implements  ItemCategoryInterface{
     @NonNull
     @Override
     public String toString() {
-        return "Spice{" +
+        return "Fruit{" +
                 "name='" + name + '\'' +
                 ", weight=" + weight +
                 ", quantity=" + quantity +

@@ -1,10 +1,6 @@
-package com.example.grocerylist;
-
-import static com.example.grocerylist.CreateFruitListActivity.NEW_LIST;
+package com.minimaldev4playstore.grocerylist;
 
 import android.app.Dialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -19,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
