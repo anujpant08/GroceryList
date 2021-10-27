@@ -6,6 +6,7 @@
     android:textColor="@color/secondary"
     android:textSize="16sp"
     android:fontFamily="@font/open_sans"
+    android:background="@color/white"
     android:text="Hello">
 
 </TextView>

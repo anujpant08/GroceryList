@@ -124,7 +124,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Log.e(TAG, "new grocery item: " + BottomSheetFragment.groceryItem);
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.fruit_red));
-        snackbar.setActionTextColor(getResources().getColor(R.color.white));
+        snackbar.setTextColor(getResources().getColor(R.color.white));
         snackbar.setAnchorView(contentView);
         snackbar.show();
     }
@@ -148,7 +148,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         BottomSheetFragment.groceryItem.setVegetableList(new ArrayList<>(vegetables));
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.dark_green));
-        snackbar.setActionTextColor(getResources().getColor(R.color.white));
+        snackbar.setTextColor(getResources().getColor(R.color.white));
         snackbar.setAnchorView(contentView);
         snackbar.show();
     }
@@ -171,7 +171,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         BottomSheetFragment.groceryItem.setSpiceList(new ArrayList<>(spices));
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.dark_red));
-        snackbar.setActionTextColor(getResources().getColor(R.color.white));
+        snackbar.setTextColor(getResources().getColor(R.color.white));
         snackbar.setAnchorView(contentView);
         snackbar.show();
     }
@@ -194,7 +194,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         BottomSheetFragment.groceryItem.setOthersList(new ArrayList<>(othersList));
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.black));
-        snackbar.setActionTextColor(getResources().getColor(R.color.white));
+        snackbar.setTextColor(getResources().getColor(R.color.white));
         snackbar.setAnchorView(contentView);
         snackbar.show();
     }
