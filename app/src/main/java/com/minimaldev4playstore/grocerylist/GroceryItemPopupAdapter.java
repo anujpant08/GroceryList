@@ -1,7 +1,6 @@
-package com.example.grocerylist;
+package com.minimaldev4playstore.grocerylist;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class GroceryItemPopupAdapter extends RecyclerView.Adapter<GroceryItemPopupAdapter.GroceryItemPopupViewHolder> {
