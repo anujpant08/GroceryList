@@ -62,11 +62,11 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
             String jsonData = sharedPreferences.getString(NEW_LIST, "");
             Type type = new TypeToken<GroceryItem>(){}.getType();
             if(jsonData != null && !jsonData.equals("")){
-                Log.e(TAG, "jsonATA: " + jsonData);
+                //Log.e(TAG, "jsonATA: " + jsonData);
                 Gson gson = new Gson();
                 newGroceryItem = gson.fromJson(jsonData, type);
             }
-            Log.e(TAG, "In Spices: " + newGroceryItem);
+            //Log.e(TAG, "In Spices: " + newGroceryItem);
             ImageView imageView = (ImageView)findViewById(R.id.feature_spice);
             Glide.with(this).load(R.drawable.spice).into(imageView);
             String spicesJSON = "";
@@ -112,7 +112,7 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
-                                Log.e(TAG, "Firebase spice URL: " + imageString);
+                                //Log.e(TAG, "Firebase spice URL: " + imageString);
                                 bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Spice");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_SPICES_LIST, new LinkedHashSet<>()));
@@ -127,7 +127,7 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e(TAG, "An exception has occurred: ", error.toException());
+                                //Log.e(TAG, "An exception has occurred: ", error.toException());
                                 bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Spice");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_SPICES_LIST, new LinkedHashSet<>()));
@@ -151,7 +151,7 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                     Intent intent = new Intent(CreateSpicesListActivity.this, CreateDairyBreadListActivity.class);
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
-                    Log.e(TAG,"new list in spices: " + jsonContent);
+                    //Log.e(TAG,"new list in spices: " + jsonContent);
                     editor.putString(NEW_LIST, jsonContent);
                     editor.apply();
                     startActivity(intent);
@@ -169,7 +169,7 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                 }
             });
         }catch(Exception exception){
-            Log.e(TAG, "An exception has occurred: ", exception);
+            //Log.e(TAG, "An exception has occurred: ", exception);
         }
     }
     private void parseJSON(String json){
@@ -189,7 +189,7 @@ public class CreateSpicesListActivity extends CreateFruitListActivity implements
                 allSpices.add(herbsName);
             }
         }catch(Exception exception){
-            Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
+            //Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
         }
     }
     @Override

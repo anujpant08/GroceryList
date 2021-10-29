@@ -4,14 +4,22 @@ plugins {
 apply plugin: 'com.google.gms.google-services'
 
 android {
+    signingConfigs {
+        config {
+            storeFile file('/Users/anujpant/Documents/GroceryList keystore')
+            keyAlias 'GroceryListV1Key'
+            keyPassword 'Chelsea997!'
+            storePassword 'Chelsea997!'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
         applicationId "com.minimaldev4playstore.grocerylist"
         minSdk 21
         targetSdk 31
-        versionCode 2
-        versionName "1.0.1"
+        versionCode 3
+        versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -24,6 +32,8 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {

@@ -8,41 +8,28 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:883491757578:android:cd0e5467bdbf04af4fc9f3",
-        "android_client_info": {
-          "package_name": "com.example.grocerylist"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "883491757578-lp703n0actt62dlf0cq37d6n9n260578.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyB76yKiw9sIajyeUlOJQVSfQMyT6dOeRdI"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "883491757578-lp703n0actt62dlf0cq37d6n9n260578.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:883491757578:android:11b087a9a078dfe34fc9f3",
         "android_client_info": {
           "package_name": "com.minimaldev4playstore.grocerylist"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "883491757578-72qmto4j9advrko86htfoiglphe1c641.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.minimaldev4playstore.grocerylist",
+            "certificate_hash": "c10da87b0943a6f0d958f5c95f7315c3289d9a5a"
+          }
+        },
+        {
+          "client_id": "883491757578-qh0o4rl5uggh16hp2vlfg8tns2go037t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.minimaldev4playstore.grocerylist",
+            "certificate_hash": "82d000ae799b7661aec503d034d8c227a21fa823"
+          }
+        },
         {
           "client_id": "883491757578-lp703n0actt62dlf0cq37d6n9n260578.apps.googleusercontent.com",
           "client_type": 3

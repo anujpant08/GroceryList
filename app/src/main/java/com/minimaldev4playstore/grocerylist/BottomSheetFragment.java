@@ -1,6 +1,7 @@
 package com.minimaldev4playstore.grocerylist;
 
 import android.app.Dialog;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -10,8 +11,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -35,7 +43,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     }
 
     public void setItemData(String base64Image, String fruitName, GroceryItem groceryItem, String family){
-        Log.e(TAG, "grocery item in BottomSheetFragment: " + groceryItem);
+        ////Log.e(TAG, "grocery item in BottomSheetFragment: " + groceryItem);
         this.base64Image = base64Image;
         this.itemName = fruitName;
         BottomSheetFragment.groceryItem = groceryItem;
@@ -50,27 +58,37 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
     public void setupDialog(Dialog dialog, int style) {
         contentView = View.inflate(getContext(), R.layout.fragment_bottom_sheet, null);
         dialog.setContentView(contentView);
-        Log.e(TAG,"base64 data: " + base64Image);
+        //Log.e(TAG,"base64 data: " + base64Image);
         ImageView imageView = (ImageView) contentView.findViewById(R.id.item_image);
         TextView textView = (TextView) contentView.findViewById(R.id.item_name);
         EditText quantity = (EditText) contentView.findViewById(R.id.quantity_edit_text);
         EditText weight = (EditText) contentView.findViewById(R.id.weight_edit_text);
         textView.setText(itemName);
         if(base64Image != null && !base64Image.equals("") && !base64Image.equals("null")){
-            Glide.with(requireContext()).load(base64Image).into(imageView);
+            GlideApp.with(requireContext()).load(base64Image.trim()).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).listener(new RequestListener<Drawable>() {
+                @Override
+                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                    return true;
+                }
+
+                @Override
+                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                    return false;
+                }
+            }).into(imageView);
         }else{
             switch(family){
                 case "Fruit":
-                    Glide.with(requireContext()).load(R.drawable.fruit).into(imageView);
+                    GlideApp.with(requireContext()).load(R.drawable.fruit).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imageView);
                     break;
                 case "Vegetable":
-                    Glide.with(requireContext()).load(R.drawable.vegetables).into(imageView);
+                    GlideApp.with(requireContext()).load(R.drawable.vegetables).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imageView);
                     break;
                 case "Spice":
-                    Glide.with(requireContext()).load(R.drawable.spice).into(imageView);
+                    GlideApp.with(requireContext()).load(R.drawable.spice).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imageView);
                     break;
                 case "Others":
-                    Glide.with(requireContext()).load(R.drawable.dairybread).into(imageView);
+                    GlideApp.with(requireContext()).load(R.drawable.dairybread).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(imageView);
                     break;
 
             }
@@ -103,7 +121,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Fruit fruit = new Fruit(itemName);
         fruit.setQuantity(quantityValue);
         fruit.setWeight(weightValue);
-        Log.e(TAG, "Fruit added: " + fruit);
+        //////Log.e(TAG, "Fruit added: " + fruit);
         if(BottomSheetFragment.groceryItem == null){
             BottomSheetFragment.groceryItem = new GroceryItem();
         }
@@ -116,7 +134,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         fruits.remove(fruit);
         fruits.add(fruit);//Updating fruit list with new fruit
         BottomSheetFragment.groceryItem.setFruitList(new ArrayList<>(fruits));
-        Log.e(TAG, "new grocery item: " + BottomSheetFragment.groceryItem);
+        //////Log.e(TAG, "new grocery item: " + BottomSheetFragment.groceryItem);
         Snackbar snackbar = Snackbar.make(contentView.getRootView(), itemName + " added to the list", Snackbar.LENGTH_SHORT);
         snackbar.setBackgroundTint(getResources().getColor(R.color.fruit_red));
         snackbar.setTextColor(getResources().getColor(R.color.white));
@@ -128,7 +146,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Vegetable vegetable = new Vegetable(itemName);
         vegetable.setQuantity(quantityValue);
         vegetable.setWeight(weightValue);
-        Log.e(TAG, "Vegetable added: " + vegetable);
+        //////Log.e(TAG, "Vegetable added: " + vegetable);
         if(BottomSheetFragment.groceryItem == null){
             BottomSheetFragment.groceryItem = new GroceryItem();
         }
@@ -151,7 +169,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Spice spice = new Spice(itemName);
         spice.setQuantity(quantityValue);
         spice.setWeight(weightValue);
-        Log.e(TAG, "Spice added: " + spice);
+        //////Log.e(TAG, "Spice added: " + spice);
         if(BottomSheetFragment.groceryItem == null){
             BottomSheetFragment.groceryItem = new GroceryItem();
         }
@@ -174,7 +192,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         Others others = new Others(itemName);
         others.setQuantity(quantityValue);
         others.setWeight(weightValue);
-        Log.e(TAG, "Other product added: " + others);
+        ////Log.e(TAG, "Other product added: " + others);
         if(BottomSheetFragment.groceryItem == null){
             BottomSheetFragment.groceryItem = new GroceryItem();
         }

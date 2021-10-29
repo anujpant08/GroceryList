@@ -61,11 +61,11 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity implem
             String jsonData = sharedPreferences.getString(NEW_LIST, "");
             Type type = new TypeToken<GroceryItem>(){}.getType();
             if(jsonData != null && !jsonData.equals("")){
-                Log.e(TAG, "jsonATA: " + jsonData);
+                //Log.e(TAG, "jsonATA: " + jsonData);
                 Gson gson = new Gson();
                 newGroceryItem = gson.fromJson(jsonData, type);
             }
-            Log.e(TAG, "In Veggies: " + newGroceryItem);
+            //Log.e(TAG, "In Veggies: " + newGroceryItem);
             ImageView imageView = (ImageView)findViewById(R.id.feature_vegetable);
             Glide.with(this).load(R.drawable.vegetables).into(imageView);
             if(allVegetables.isEmpty()) {
@@ -111,7 +111,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity implem
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
-                                Log.e(TAG, "Firebase vegetable URL: " + imageString);
+                                //Log.e(TAG, "Firebase vegetable URL: " + imageString);
                                 bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_VEGGIES_LIST, new LinkedHashSet<>()));
@@ -126,7 +126,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity implem
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e(TAG, "An exception has occurred: ", error.toException());
+                                //Log.e(TAG, "An exception has occurred: ", error.toException());
                                 bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Vegetable");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_VEGGIES_LIST, new LinkedHashSet<>()));
@@ -150,7 +150,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity implem
                     Intent intent = new Intent(CreateVegetablesListActivity.this, CreateSpicesListActivity.class);
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
-                    Log.e(TAG,"new list in vegetables: " + jsonContent);
+                    //Log.e(TAG,"new list in vegetables: " + jsonContent);
                     editor.putString(NEW_LIST, jsonContent);
                     editor.apply();
                     startActivity(intent);
@@ -168,7 +168,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity implem
                 }
             });
         }catch(Exception exception){
-            Log.e(TAG, "An exception occurred: ", exception);
+            //Log.e(TAG, "An exception occurred: ", exception);
         }
     }
     private void parseJSON(String vegetableJSON){
@@ -182,7 +182,7 @@ public class CreateVegetablesListActivity extends CreateFruitListActivity implem
                 allVegetables.add(vegetableName);
             }
         }catch(Exception exception){
-            Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
+            //Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
         }
     }
     @Override

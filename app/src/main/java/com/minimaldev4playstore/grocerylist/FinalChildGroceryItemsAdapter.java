@@ -16,6 +16,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,16 +59,16 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
         if(!isNetworkAvailable()){
             switch (eachCategoryItems.get(position).getFamily()){
                 case "Fruits":
-                    Glide.with(context).load(R.drawable.fruit).into(holder.itemImage);
+                    GlideApp.with(context).load(R.drawable.fruit).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                     break;
                 case "Vegetables":
-                    Glide.with(context).load(R.drawable.vegetables).into(holder.itemImage);
+                    GlideApp.with(context).load(R.drawable.vegetables).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                     break;
                 case "Spices":
-                    Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
+                    GlideApp.with(context).load(R.drawable.spice).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                     break;
                 case "Others":
-                    Glide.with(context).load(R.drawable.dairybread).into(holder.itemImage);
+                    GlideApp.with(context).load(R.drawable.dairybread).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                     break;
             }
         }else{
@@ -78,20 +80,20 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                     if(imageString == null || imageString.equals("")) {
                         switch (eachCategoryItems.get(position).getFamily()) {
                             case "Fruits":
-                                Glide.with(context).load(R.drawable.fruit).into(holder.itemImage);
+                                GlideApp.with(context).load(R.drawable.fruit).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                                 break;
                             case "Vegetables":
-                                Glide.with(context).load(R.drawable.vegetables).into(holder.itemImage);
+                                GlideApp.with(context).load(R.drawable.vegetables).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                                 break;
                             case "Spices":
-                                Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
+                                GlideApp.with(context).load(R.drawable.spice).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                                 break;
                             case "Others":
-                                Glide.with(context).load(R.drawable.dairybread).into(holder.itemImage);
+                                GlideApp.with(context).load(R.drawable.dairybread).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                                 break;
                         }
                     }else{
-                        Glide.with(context).load(imageString).into(holder.itemImage);
+                        GlideApp.with(context).load(imageString).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                     }
                 }
 
@@ -100,16 +102,16 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                     Log.e(TAG, "An exception has occurred: ", error.toException());
                     switch (eachCategoryItems.get(position).getFamily()) {
                         case "Fruits":
-                            Glide.with(context).load(R.drawable.fruit).into(holder.itemImage);
+                            GlideApp.with(context).load(R.drawable.fruit).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                             break;
                         case "Vegetables":
-                            Glide.with(context).load(R.drawable.vegetables).into(holder.itemImage);
+                            GlideApp.with(context).load(R.drawable.vegetables).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                             break;
                         case "Spices":
-                            Glide.with(context).load(R.drawable.spice).into(holder.itemImage);
+                            GlideApp.with(context).load(R.drawable.spice).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                             break;
                         case "Others":
-                            Glide.with(context).load(R.drawable.dairybread).into(holder.itemImage);
+                            GlideApp.with(context).load(R.drawable.dairybread).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.itemImage);
                             break;
                     }
                 }
@@ -152,7 +154,7 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                 if(holder.itemQuantityTextView.getText() != null && !holder.itemQuantityTextView.getText().equals("")){
                     String text = holder.itemQuantityTextView.getText().toString();
                     double value;
-                    if(text.contains("Kg")){
+                    if(text.contains("Kg") || text.contains("kg")){
                         value = Double.parseDouble(text.substring(0, text.indexOf("K")).trim());
                         if(value > 1){
                             --value;
@@ -193,7 +195,7 @@ public class FinalChildGroceryItemsAdapter extends RecyclerView.Adapter<FinalChi
                 if(holder.itemQuantityTextView.getText() != null && !holder.itemQuantityTextView.getText().equals("")){
                     String text = holder.itemQuantityTextView.getText().toString();
                     double value;
-                    if(text.contains("Kg")){
+                    if(text.contains("Kg") || text.contains("kg")){
                         value = Double.parseDouble(text.substring(0, text.indexOf("K")).trim());
                         ++value;
                         holder.itemQuantityTextView.setText(value + " Kg");

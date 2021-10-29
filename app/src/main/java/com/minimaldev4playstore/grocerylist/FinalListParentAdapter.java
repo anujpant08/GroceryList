@@ -60,7 +60,7 @@ public class FinalListParentAdapter extends RecyclerView.Adapter<FinalListParent
                 holder.title.setTextColor(this.context.getResources().getColor(R.color.black));
                 break;
         }
-        Log.e(TAG, "items: " + subItemsList);
+        //Log.e(TAG, "items: " + subItemsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this.context);
         finalChildGroceryItemsAdapter = new FinalChildGroceryItemsAdapter(holder.recyclerViewChildItems.getContext(), subItemsList.get(position), groceryItem);
         RecyclerView.OnItemTouchListener scrollTouchListener = new RecyclerView.OnItemTouchListener() {
