@@ -37,11 +37,11 @@ public class FinalListActivity extends CreateFruitListActivity {
         String jsonData = sharedPreferences.getString(NEW_LIST, "");
         Type type = new TypeToken<GroceryItem>(){}.getType();
         if(jsonData != null && !jsonData.equals("")){
-            Log.e(TAG, "jsonDate in Final List Activity: " + jsonData);
+            //Log.e(TAG, "jsonDate in Final List Activity: " + jsonData);
             Gson gson = new Gson();
             newGroceryItem = gson.fromJson(jsonData, type);
         }
-        Log.e(TAG, "In FinalActivity: " + newGroceryItem);
+        //Log.e(TAG, "In FinalActivity: " + newGroceryItem);
         List<List<? extends ItemCategoryInterface>> subItemsList = new LinkedList<>();
         RecyclerView recyclerView = findViewById(R.id.final_list_recycler_view);
         if(newGroceryItem != null){
@@ -79,13 +79,13 @@ public class FinalListActivity extends CreateFruitListActivity {
             String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");
             Type typeList = new TypeToken<List<GroceryItem>>(){}.getType();
             if(listsJsonData != null && !listsJsonData.equals("")){
-                Log.e(TAG, "already saved lists: " + listsJsonData);
+                //Log.e(TAG, "already saved lists: " + listsJsonData);
                 Gson gson = new Gson();
                 savedLists = gson.fromJson(listsJsonData, typeList);
             }else{
                 savedLists = new LinkedList<>();
             }
-            Log.e(TAG,"Gor this list from sharedPrefs : " + savedLists);
+            //Log.e(TAG,"Gor this list from sharedPrefs : " + savedLists);
             extendedFloatingActionButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -107,11 +107,11 @@ public class FinalListActivity extends CreateFruitListActivity {
                                 newGroceryItem.setOthersList((List<Others>) subList);
                             }
                         }
-                        Log.e(TAG, "final list saved: " + newGroceryItem);
+                        //Log.e(TAG, "final list saved: " + newGroceryItem);
                         savedLists.add(newGroceryItem);
                         Gson gson = new Gson();
                         String jsonContent = gson.toJson(savedLists);
-                        Log.e(TAG,"all list in saved lists: " + jsonContent);
+                        //Log.e(TAG,"all list in saved lists: " + jsonContent);
                         editor.putString(SAVEDLIST, jsonContent);
                         editor.apply();
                         Intent intent = new Intent(FinalListActivity.this, MainActivity.class);

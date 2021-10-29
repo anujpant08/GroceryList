@@ -40,7 +40,7 @@ import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CreateFruitListActivity extends AppCompatActivity implements ItemClickListener {
-    private static final String TAG = "CreateNewListActivity";
+    private static final String TAG = "CreateFruitListActivity";
     public static final List<String> allFruits = new LinkedList<>();
     public static final String NEW_LIST = "NewList";
     private static final String RECENT_FRUIT_LIST = "RecentFruitList";
@@ -65,7 +65,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
                 Intent intent = getIntent();
                 intentValue = intent.getStringExtra("ClearData");
                 if(intentValue != null && intentValue.equals("true")){
-                    Log.e(TAG, "claerdata oncreate furit list activity");
+                    //Log.e(TAG, "claerdata oncreate furit list activity");
                     SharedPreferences sharedPreferences = this.getSharedPreferences(NEW_LIST, Context.MODE_PRIVATE);
                     editor = sharedPreferences.edit();
                     editor.clear();
@@ -84,7 +84,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
                 editor = sharedPreferences.edit();
             }
             recentItems = new LinkedList<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
-            Log.e(TAG, "recents list: " + recentItems);
+            //Log.e(TAG, "recents list: " + recentItems);
             RecyclerView recentsRecyclerView = findViewById(R.id.recents_recycler_view);
             RecentItemsAdapter recentItemsAdapter = new RecentItemsAdapter(recentItems, this, "Fruit");
             GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
@@ -127,7 +127,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
-                                Log.e(TAG, "Firebase fruit URL: " + imageString);
+                                //Log.e(TAG, "Firebase fruit URL: " + imageString);
                                 bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
@@ -142,7 +142,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e(TAG, "An exception has occurred: ", error.toException());
+                                //Log.e(TAG, "An exception has occurred: ", error.toException());
                                 bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Fruit");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_FRUIT_LIST, new LinkedHashSet<>()));
@@ -167,7 +167,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
                     intentValue = "";
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
-                    Log.e(TAG,"new list in fruits: " + jsonContent);
+                    //Log.e(TAG,"new list in fruits: " + jsonContent);
                     editor.putString(NEW_LIST, jsonContent);
                     editor.apply();
                     startActivity(intent);
@@ -185,7 +185,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
             });
 
         }catch(Exception exception){
-            Log.e(TAG, "An exception occurred: ", exception);
+            //Log.e(TAG, "An exception occurred: ", exception);
         }
     }
     private void parseJSON(String json){
@@ -199,7 +199,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
                 allFruits.add(fruitName);
             }
         }catch(Exception exception){
-            Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
+            //Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
         }
     }
     protected boolean isNetworkAvailable() {
@@ -212,7 +212,7 @@ public class CreateFruitListActivity extends AppCompatActivity implements ItemCl
     @Override
     protected void onResume() {
         newGroceryItem = BottomSheetFragment.getGroceryItem();
-        Log.e(TAG, "resume of fruit list activity: " + newGroceryItem);
+        //Log.e(TAG, "resume of fruit list activity: " + newGroceryItem);
         super.onResume();
     }
 

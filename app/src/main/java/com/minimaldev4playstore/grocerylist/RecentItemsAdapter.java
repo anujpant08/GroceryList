@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
@@ -37,24 +39,24 @@ public class RecentItemsAdapter extends RecyclerView.Adapter<RecentItemsAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecentItemsAdapter.RecentsViewHolder holder, int position) {
         String[] data = recentItems.get(holder.getAdapterPosition()).split("##");
-        Log.e(TAG, "DATA in recent adapter is: " + recentItems.get(holder.getAdapterPosition()));
+        //Log.e(TAG, "DATA in recent adapter is: " + recentItems.get(holder.getAdapterPosition()));
         holder.recentsItemName.setText(data[0]);
         if(data.length > 1 && data[1].length() > 0 && !data[1].equals("null")){
-            Glide.with(context).load(data[1]).into(holder.recentsImageView);
+            GlideApp.with(context).load(data[1]).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.recentsImageView);
         }else{
-            Log.e(TAG, "family in recent adapter is: " + family);
+            //Log.e(TAG, "family in recent adapter is: " + family);
             switch(family){
                 case "Fruit":
-                    Glide.with(context).load(R.drawable.fruit).into(holder.recentsImageView);
+                    GlideApp.with(context).load(R.drawable.fruit).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.recentsImageView);
                     break;
                 case "Vegetable":
-                    Glide.with(context).load(R.drawable.vegetables).into(holder.recentsImageView);
+                    GlideApp.with(context).load(R.drawable.vegetables).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.recentsImageView);
                     break;
                 case "Spice":
-                    Glide.with(context).load(R.drawable.spice).into(holder.recentsImageView);
+                    GlideApp.with(context).load(R.drawable.spice).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.recentsImageView);
                     break;
                 case "Others":
-                    Glide.with(context).load(R.drawable.dairybread).into(holder.recentsImageView);
+                    GlideApp.with(context).load(R.drawable.dairybread).apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.ALL)).into(holder.recentsImageView);
                     break;
             }
         }

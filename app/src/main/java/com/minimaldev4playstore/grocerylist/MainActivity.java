@@ -73,10 +73,10 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");
         Type typeList = new TypeToken<List<GroceryItem>>(){}.getType();
         if(listsJsonData != null && !listsJsonData.equals("")){
-            Log.e(TAG, "already saved lists: " + listsJsonData);
+            //Log.e(TAG, "already saved lists: " + listsJsonData);
             Gson gson = new Gson();
             groceryItemList = gson.fromJson(listsJsonData, typeList);
-            Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
+            //Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
             groceryItemAdapter.updateList(groceryItemList);
         }
         searchBox.addTextChangedListener(new TextWatcher() {
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                 }
             }
         });
-        Log.e(TAG, "Final list: " + groceryItemList);
+        //Log.e(TAG, "Final list: " + groceryItemList);
         ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             @Override
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int position = viewHolder.getAdapterPosition();
                         groceryItemList.remove(position);
-                        Log.e(TAG, "grocery item list after deleting: " + groceryItemList);
+                        //Log.e(TAG, "grocery item list after deleting: " + groceryItemList);
                         //groceryItemAdapter.notifyItemRemoved(position);
                         groceryItemAdapter.updateList(groceryItemList);
                         Gson gson = new Gson();
@@ -244,10 +244,10 @@ public class MainActivity extends AppCompatActivity implements ItemClickListener
         String listsJsonData = sharedPreferencesGroceryList.getString(SAVEDLIST, "");
         Type typeList = new TypeToken<List<GroceryItem>>(){}.getType();
         if(listsJsonData != null && !listsJsonData.equals("")){
-            Log.e(TAG, "already saved lists: " + listsJsonData);
+            //Log.e(TAG, "already saved lists: " + listsJsonData);
             Gson gson = new Gson();
             groceryItemList = gson.fromJson(listsJsonData, typeList);
-            Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
+            //Log.e(TAG,"Got this list from sharedPrefs : " + groceryItemList);
             groceryItemAdapter.updateList(groceryItemList);
             recyclerView.setAdapter(groceryItemAdapter);// To reflect display items after filtering.
         }

@@ -62,11 +62,11 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
             String jsonData = sharedPreferences.getString(NEW_LIST, "");
             Type type = new TypeToken<GroceryItem>(){}.getType();
             if(jsonData != null && !jsonData.equals("")){
-                Log.e(TAG, "jsonATA: " + jsonData);
+                //Log.e(TAG, "jsonATA: " + jsonData);
                 Gson gson = new Gson();
                 newGroceryItem = gson.fromJson(jsonData, type);
             }
-            Log.e(TAG, "In DairyBread: " + newGroceryItem);
+            //Log.e(TAG, "In DairyBread: " + newGroceryItem);
             ImageView imageView = (ImageView)findViewById(R.id.feature_bread_dairy);
             Glide.with(this).load(R.drawable.dairybread).into(imageView);
             String othersJSON = "";
@@ -112,7 +112,7 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 imageString = (String) snapshot.getValue();
-                                Log.e(TAG, "Firebase others URL: " + imageString);
+                                //Log.e(TAG, "Firebase others URL: " + imageString);
                                 bottomSheetFragment.setItemData(imageString, (String) adapterView.getItemAtPosition(position), newGroceryItem, "Others");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_BREAD_DAIRY_LIST, new LinkedHashSet<>()));
@@ -127,7 +127,7 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
-                                Log.e(TAG, "An exception has occurred: ", error.toException());
+                                //Log.e(TAG, "An exception has occurred: ", error.toException());
                                 bottomSheetFragment.setItemData("", (String) adapterView.getItemAtPosition(position), newGroceryItem, "Others");
                                 bottomSheetFragment.show(getSupportFragmentManager(), "BottomSheetFragment");
                                 Set<String> recents = new LinkedHashSet<>(recentsSharedPrefs.getStringSet(RECENT_BREAD_DAIRY_LIST, new LinkedHashSet<>()));
@@ -151,7 +151,7 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
                     Intent intent = new Intent(CreateDairyBreadListActivity.this, FinalListActivity.class);
                     Gson gson = new Gson();
                     String jsonContent = gson.toJson(BottomSheetFragment.getGroceryItem());
-                    Log.e(TAG,"new list in dairyBread: " + jsonContent);
+                    //Log.e(TAG,"new list in dairyBread: " + jsonContent);
                     editor.putString(NEW_LIST, jsonContent);
                     editor.apply();
                     startActivity(intent);
@@ -169,7 +169,7 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
                 }
             });
         }catch(Exception exception){
-            Log.e(TAG, "An exception has occurred: ", exception);
+            //Log.e(TAG, "An exception has occurred: ", exception);
         }
     }
     private void parseJSON(String json){
@@ -189,7 +189,7 @@ public class CreateDairyBreadListActivity extends CreateFruitListActivity {
                 allProducts.add(productName);
             }
         }catch(Exception exception){
-            Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
+            //Log.e(TAG, "An exception occurred while JSON parsing: ", exception);
         }
     }
     @Override
